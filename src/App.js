@@ -2,6 +2,7 @@ import './App.scss';
 import React, { useEffect, useState } from 'react';
 
 import SectionComponent from './components/section-component/SectionComponent';
+import HeaderComponent from './components/header-component/HeaderComponent'
 
 import { initialSections } from './helpers/resources/initialSections';
 import { sortArrayOfObjectsByProperty } from './helpers/functions/functions'
@@ -36,6 +37,10 @@ function App() {
 
   return (
     <div className="main-wrapper">
+
+      <HeaderComponent
+        section={'PAS'}>
+      </HeaderComponent>
       
       <h1>Bienvenido/a</h1>
 
