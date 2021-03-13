@@ -3,8 +3,9 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
 
-    height: 90px;
+    min-height: 90px;
     width: 100%;
 
     margin-top: 10px;
@@ -33,6 +34,8 @@
             font-size: 24px;
             font-weight: 500;
             color: white;
+
+            font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
         }
 
         .sub {
@@ -41,6 +44,8 @@
             font-size: 18px;
             font-weight: 400;
             color: white;
+
+            font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
         }
 
         a {
