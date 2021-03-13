@@ -6,7 +6,7 @@ function StyledButtonComponent(props) {
 
 
     return (
-        <div className="buttonWrapper">{props.buttonText}</div>
+        <div className="buttonWrapper" onClick={props.clickButton}>{props.buttonText}</div>
     );
 }
 

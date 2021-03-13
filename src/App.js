@@ -7,6 +7,7 @@ import Modal from 'react-modal';
 import SectionComponent from './components/section-component/SectionComponent';
 import HeaderComponent from './components/header-component/HeaderComponent';
 import StyledButtonComponent from './components/styled-button-component/StyledButtonComponent';
+import SectionModalComponent from './components/section-modal-component/SectionModalComponent';
 
 // Other imports
 import { initialSections } from './helpers/resources/initialSections';
@@ -65,16 +66,14 @@ function App() {
       </HeaderComponent>
 
       <div className="buttonsMenu">
-        <div id="addSection" onClick={openModal}>
-          <StyledButtonComponent
-            buttonText={'Añadir Contenido'}>
-          </StyledButtonComponent>
-        </div>
-
+        <StyledButtonComponent
+          id="addSection"
+          clickButton={openModal}
+          buttonText={'Añadir Contenido'}>
+        </StyledButtonComponent>
         <StyledButtonComponent
             buttonText={'Vista Previa'}>
         </StyledButtonComponent>
-
         <StyledButtonComponent
             buttonText={'Guardar Cambios'}>
         </StyledButtonComponent>
@@ -85,18 +84,12 @@ function App() {
         onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         style={modalCustomStyles}
+        ariaHideApp={false}
         contentLabel="Example Modal">
-
-          <h2>Hello</h2>
-          <button onClick={closeModal}>close</button>
-          <div>I am a modal</div>
-          <form>
-            <input />
-            <button>tab navigation</button>
-            <button>stays</button>
-            <button>inside</button>
-            <button>the modal</button>
-          </form>
+        <SectionModalComponent
+          closeModal={closeModal}
+          title={'Nueva Sección'}>
+        </SectionModalComponent> 
       </Modal>
         
       
