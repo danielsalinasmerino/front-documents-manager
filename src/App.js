@@ -1,11 +1,20 @@
+// Libraries imports
 import './App.scss';
 import React, { useEffect, useState } from 'react';
+import Modal from 'react-modal';
 
+// Project Components imports
 import SectionComponent from './components/section-component/SectionComponent';
-import HeaderComponent from './components/header-component/HeaderComponent'
+import HeaderComponent from './components/header-component/HeaderComponent';
+import StyledButtonComponent from './components/styled-button-component/StyledButtonComponent';
 
+// Other imports
 import { initialSections } from './helpers/resources/initialSections';
-import { sortArrayOfObjectsByProperty } from './helpers/functions/functions'
+import { sortArrayOfObjectsByProperty } from './helpers/functions/functions';
+import { modalCustomStyles } from './helpers/constants/modalCustomStyles'
+
+// Binding of the Modal to the App element
+Modal.setAppElement(document.getElementById('addSection'));
 
 function App() {
 
@@ -13,10 +22,23 @@ function App() {
   useEffect(() => {
     setSections(sortArrayOfObjectsByProperty(initialSections, 'index'))
   }, []);;
+
+  const [modalIsOpen,setIsOpen] = React.useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function afterOpenModal() {
+    
+  }
+
+  function closeModal(){
+    setIsOpen(false);
+  }
   
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-
 
   const handleSubmit = (e) => {
 
@@ -41,6 +63,42 @@ function App() {
       <HeaderComponent
         section={'PAS'}>
       </HeaderComponent>
+
+      <div className="buttonsMenu">
+        <div id="addSection" onClick={openModal}>
+          <StyledButtonComponent
+            buttonText={'Añadir Contenido'}>
+          </StyledButtonComponent>
+        </div>
+
+        <StyledButtonComponent
+            buttonText={'Vista Previa'}>
+        </StyledButtonComponent>
+
+        <StyledButtonComponent
+            buttonText={'Guardar Cambios'}>
+        </StyledButtonComponent>
+      </div>
+
+      <Modal
+        isOpen={modalIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        style={modalCustomStyles}
+        contentLabel="Example Modal">
+
+          <h2>Hello</h2>
+          <button onClick={closeModal}>close</button>
+          <div>I am a modal</div>
+          <form>
+            <input />
+            <button>tab navigation</button>
+            <button>stays</button>
+            <button>inside</button>
+            <button>the modal</button>
+          </form>
+      </Modal>
+        
       
       <h1>Bienvenido/a</h1>
 

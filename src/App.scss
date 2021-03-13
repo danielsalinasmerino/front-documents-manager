@@ -6,6 +6,13 @@
 
   margin-left: 25px;
   margin-right: 25px;
+
+  .buttonsMenu {
+    display: flex;
+    flex-direction: row;
+
+    margin-top: 20px;
+  }
   
   h1 {
     font-size: 26px;
