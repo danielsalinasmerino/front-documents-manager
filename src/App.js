@@ -11,7 +11,7 @@ import StyledButtonComponent from './components/styled-button-component/StyledBu
 // Other imports
 import { initialSections } from './helpers/resources/initialSections';
 import { sortArrayOfObjectsByProperty } from './helpers/functions/functions';
-import { modalCustomStyles } from './helpers/constants/modalCustomStyles'
+import { modalCustomStyles } from './helpers/constants/modalCustomStyles';
 
 // Binding of the Modal to the App element
 Modal.setAppElement(document.getElementById('addSection'));
