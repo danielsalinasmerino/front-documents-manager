@@ -37,11 +37,8 @@ function App() {
   function closeModal(){
     setIsOpen(false);
   }
-  
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
 
-  const handleSubmit = (e) => {
+  /* const handleSubmit = (e) => {
 
     e.preventDefault();
     
@@ -56,7 +53,7 @@ function App() {
     );
 
     setSections([...sortArrayOfObjectsByProperty(updatedSections, 'index')]);
-  }
+  } */
 
   return (
     <div className="main-wrapper">
@@ -69,7 +66,7 @@ function App() {
         <StyledButtonComponent
           id="addSection"
           clickButton={openModal}
-          buttonText={'Añadir Contenido'}>
+          buttonText={'Añadir Sección'}>
         </StyledButtonComponent>
         <StyledButtonComponent
             buttonText={'Vista Previa'}>
@@ -91,7 +88,6 @@ function App() {
           title={'Nueva Sección'}>
         </SectionModalComponent> 
       </Modal>
-        
       
       <h1>Bienvenido/a</h1>
 
@@ -106,29 +102,6 @@ function App() {
           </SectionComponent>
         )
       }
-
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Title</label>
-          <input
-            type="text"
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <br/>
-          <br/>
-          <label>Description</label>
-          <textarea
-            type="text"
-            id="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-
-          <input type="submit" value="Submit" />
-        </div>
-      </form>
     
     </div>
   );

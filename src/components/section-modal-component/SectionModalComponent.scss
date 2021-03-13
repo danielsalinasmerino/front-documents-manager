@@ -15,7 +15,7 @@
         
         width: 95%;
 
-        border-bottom: 2px solid #e2e2e2;
+        border-bottom: 2px solid #4664A2;
 
         .titleHeader {
             font-size: 22px;
@@ -32,7 +32,7 @@
         }
     }
 
-    .titleWrapper {
+    .inputWrapper {
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
@@ -40,14 +40,49 @@
 
         width: 95%;
 
-        margin-top: 15px;
+        margin-top: 17px;
 
-        .title {
+        .inputTitle {
             font-size: 22px;
             font-weight: 500;
+            margin-bottom: 12px !important;
 
             color: #4664A2;
         }
+
+        .ownInput {
+            width: 100%;
+            padding: 10px 5px;
+            border:none;
+            border-bottom: 1px solid #e2e2e2;
+
+            font-size: 18px;
+            font-weight: 500;
+
+            background-color: #fbfbfb;
+            
+        }
+        .ownInput:focus {
+            outline: none;
+        }
+
+        .ownTextarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px 5px;
+            border:none;
+            border-bottom: 1px solid #e2e2e2;
+
+            font-size: 18px;
+            font-weight: 500;
+
+            font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+            background-color: #fbfbfb;
+        }
+        .ownTextarea:focus {
+            outline: none;
+        }
+        
     }
 
 }
