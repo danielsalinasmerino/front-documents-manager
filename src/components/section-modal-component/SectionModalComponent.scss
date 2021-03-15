@@ -40,7 +40,7 @@
 
         width: 95%;
 
-        margin-top: 17px;
+        margin-top: 10px;
 
         .inputTitle {
             font-size: 22px;
@@ -59,9 +59,9 @@
             font-size: 18px;
             font-weight: 500;
 
-            background-color: #fbfbfb;
-            
+            background-color: #fbfbfb;  
         }
+        
         .ownInput:focus {
             outline: none;
         }
@@ -82,7 +82,21 @@
         .ownTextarea:focus {
             outline: none;
         }
+
+        .error {
+            border-bottom: 1px solid red;
+        }
+
+        .error::placeholder {
+            color: red;
+        }
         
+    }
+
+    .bottomWrapper {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
     }
 
 }
