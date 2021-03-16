@@ -30,30 +30,19 @@ function App() {
     setIsOpen(true);
   }
 
-  function afterOpenModal() {
-    
-  }
-
   function closeModal(){
     setIsOpen(false);
   }
 
-  /* const handleSubmit = (e) => {
+  function saveSection(section){
 
-    e.preventDefault();
-    
     var updatedSections = sections;
+    updatedSections.push(section);
 
-    updatedSections.push({ idSection: "8",
-      title: title,
-      description: description,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      index: 8}
-    );
+    setSections([...sortArrayOfObjectsByProperty(updatedSections, 'index')])
 
-    setSections([...sortArrayOfObjectsByProperty(updatedSections, 'index')]);
-  } */
+    setIsOpen(false);
+  }
 
   return (
     <div className="main-wrapper">
@@ -78,13 +67,13 @@ function App() {
 
       <Modal
         isOpen={modalIsOpen}
-        onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         style={modalCustomStyles}
         ariaHideApp={false}
         contentLabel="Example Modal">
         <SectionModalComponent
           closeModal={closeModal}
+          saveSection={saveSection}
           title={'Nueva Sección'}>
         </SectionModalComponent> 
       </Modal>

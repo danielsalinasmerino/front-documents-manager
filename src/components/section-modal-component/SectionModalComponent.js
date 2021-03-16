@@ -13,19 +13,29 @@ function SectionModalComponent(props) {
     const [errorTitle, setErrorTitle ] = useState(false);
 
     const [contentSection, setContentSection] = useState("");
+    
     const [titleDocument, setTitleDocument] = useState("");
 
     function saveSection(){
-        
-        titleSection.trim();
+    
+        const titleSectionTrim = titleSection.trim();
 
-        if(titleSection.length === 0){
+        if(titleSectionTrim.length === 0){
             setErrorTitle(true);
-            var errorTitleDirty = true;
         }
+        else {
 
-        if(!errorTitleDirty){
-            props.closeModal();
+            const contentSectionTrim = contentSection.trim();
+
+            const newSection = { idSection: "8",
+                    title: titleSectionTrim,
+                    description: contentSectionTrim,
+                    createdAt: new Date(),
+                    updatedAt: new Date(),
+                    index: 8
+            }
+
+            props.saveSection(newSection);
         }
     }
 
@@ -69,12 +79,11 @@ function SectionModalComponent(props) {
                     name="myfile"/>
                 <input
                     className="ownInput"
-                    placeholder="Escriba el título de la sección (obligatorio)"
+                    placeholder="Escriba el título del documento (obligatorio)"
                     type="text"
                     id="titleDocument"
                     value={titleDocument}
                     onChange={(e) => setTitleDocument(e.target.value)}/>
-
             </div>
             <div className="bottomWrapper">
                 <StyledButtonComponent
