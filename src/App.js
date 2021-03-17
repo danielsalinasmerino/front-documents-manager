@@ -21,7 +21,7 @@ function App() {
 
   const [sections, setSections] = useState([]);
   useEffect(() => {
-    setSections(sortArrayOfObjectsByProperty(initialSections, 'index'))
+    setSections(sortArrayOfObjectsByProperty(initialSections, 'position'))
   }, []);;
 
   const [modalIsOpen,setIsOpen] = React.useState(false);
@@ -39,7 +39,7 @@ function App() {
     var updatedSections = sections;
     updatedSections.push(section);
 
-    setSections([...sortArrayOfObjectsByProperty(updatedSections, 'index')])
+    setSections([...sortArrayOfObjectsByProperty(updatedSections, 'position')])
 
     setIsOpen(false);
   }

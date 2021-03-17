@@ -4,8 +4,14 @@ import React, { useState } from 'react';
 // Project Components imports
 import StyledButtonComponent from '../styled-button-component/StyledButtonComponent';
 
-//Import images 
+// Import images 
 import closeModal from '../../assets/images/close.png'; 
+
+// Import classes
+import { Section } from '../../models/section';
+
+// Other imports
+import { makeId } from '../../helpers/functions/functions';
 
 function SectionModalComponent(props) {
 
@@ -13,7 +19,7 @@ function SectionModalComponent(props) {
     const [errorTitle, setErrorTitle ] = useState(false);
 
     const [contentSection, setContentSection] = useState("");
-    
+
     const [titleDocument, setTitleDocument] = useState("");
 
     function saveSection(){
@@ -27,13 +33,16 @@ function SectionModalComponent(props) {
 
             const contentSectionTrim = contentSection.trim();
 
-            const newSection = { idSection: "8",
-                    title: titleSectionTrim,
-                    description: contentSectionTrim,
-                    createdAt: new Date(),
-                    updatedAt: new Date(),
-                    index: 8
-            }
+            const newSection = new Section(
+                makeId(),
+                titleSectionTrim,
+                contentSectionTrim,
+                new Date(),
+                new Date(),
+                9, // To do (position)
+                null, // To do (parentID)
+                null  // To do (portalID)
+            );
 
             props.saveSection(newSection);
         }
