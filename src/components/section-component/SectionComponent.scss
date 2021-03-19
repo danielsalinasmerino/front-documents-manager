@@ -3,11 +3,13 @@
     font-weight: 400;
     margin-left: 20px;
 
+    margin-top: 5px !important;
+
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
 .sectionDescription {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 400;
     margin-left: 35px;
 
@@ -15,4 +17,36 @@
 
     white-space: pre-line;
     white-space: pre-wrap;
+}
+
+.sectionDocumentsList {
+    font-size: 16px;
+    font-weight: 400;
+    margin-left: 45px;
+
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+
+    li {
+        margin-bottom: 7px;
+    }
+
+    a {
+        color: #337ab7;
+    }
+    
+    a:link {
+        text-decoration: none;
+    }
+    
+    a:visited {
+        text-decoration: none;
+    }
+    
+    a:hover {
+        text-decoration: underline;
+    }
+    
+    a:active {
+        text-decoration: underline;
+    }
 }

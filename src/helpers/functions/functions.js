@@ -9,7 +9,7 @@ export function sortArrayOfObjectsByProperty(anArrayOfObjects, propertyName){
 //
 // Creates an id given the length needed
 //
-export function makeId(length = 16) {
+export function makeId(length = 32) {
     var result           = '';
     var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     var charactersLength = characters.length;

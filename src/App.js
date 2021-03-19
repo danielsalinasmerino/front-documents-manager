@@ -11,6 +11,7 @@ import SectionModalComponent from './components/section-modal-component/SectionM
 
 // Other imports
 import { initialSections } from './helpers/resources/initialSections';
+import { initialDocuments } from './helpers/resources/initialDocuments';
 import { sortArrayOfObjectsByProperty } from './helpers/functions/functions';
 import { modalCustomStyles } from './helpers/constants/modalCustomStyles';
 
@@ -20,11 +21,13 @@ Modal.setAppElement(document.getElementById('addSection'));
 function App() {
 
   const [sections, setSections] = useState([]);
-  useEffect(() => {
-    setSections(sortArrayOfObjectsByProperty(initialSections, 'position'))
-  }, []);;
-
+  const [documents, setDocuments] = useState([]);
   const [modalIsOpen,setIsOpen] = React.useState(false);
+
+  useEffect(() => {
+    setSections(sortArrayOfObjectsByProperty(initialSections, 'position'));
+    setDocuments(initialDocuments);
+  }, []);
 
   function openModal() {
     setIsOpen(true);
@@ -42,6 +45,10 @@ function App() {
     setSections([...sortArrayOfObjectsByProperty(updatedSections, 'position')])
 
     setIsOpen(false);
+  }
+
+  function getSectionDocuments(idSection){
+    return documents.filter(document => { return document.sectionID === idSection });
   }
 
   return (
@@ -88,7 +95,8 @@ function App() {
           <SectionComponent 
             key={element.idSection} 
             title={element.title} 
-            description={element.description}>
+            description={element.description}
+            documents={getSectionDocuments(element.idSection)}>
           </SectionComponent>
         )
       }
