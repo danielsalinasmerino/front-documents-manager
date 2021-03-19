@@ -39,7 +39,7 @@ function SectionModalComponent(props) {
                 contentSectionTrim,
                 new Date(),
                 new Date(),
-                9, // To do (position)
+                (props.sectiongsLength + 1),
                 null, // To do (parentID)
                 null  // To do (portalID)
             );

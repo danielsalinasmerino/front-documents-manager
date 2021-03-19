@@ -74,7 +74,8 @@ function App() {
         <SectionModalComponent
           closeModal={closeModal}
           saveSection={saveSection}
-          title={'Nueva Sección'}>
+          title={'Nueva Sección'}
+          sectiongsLength={sections.length}>
         </SectionModalComponent> 
       </Modal>
       
