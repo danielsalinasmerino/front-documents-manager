@@ -6,7 +6,7 @@ function SectionComponent(props) {
   
 
   return (
-    <div>
+    <div className="sectionWrapper">
         <p className="sectionTittle">{props.title}</p>
         <p className="sectionDescription">{props.description}</p>
         <ul className="sectionDocumentsList">
