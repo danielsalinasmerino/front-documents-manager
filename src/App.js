@@ -12,7 +12,7 @@ import SectionModalComponent from './components/section-modal-component/SectionM
 // Other imports
 import { initialSections } from './helpers/resources/initialSections';
 import { initialDocuments } from './helpers/resources/initialDocuments';
-import { sortArrayOfObjectsByProperty } from './helpers/functions/functions';
+import { sortArrayOfSectionsByPosition } from './helpers/functions/functions';
 import { modalCustomStyles } from './helpers/constants/modalCustomStyles';
 
 // Binding of the Modal to the App element
@@ -22,10 +22,10 @@ function App() {
 
   const [sections, setSections] = useState([]);
   const [documents, setDocuments] = useState([]);
-  const [modalIsOpen,setIsOpen] = React.useState(false);
+  const [modalIsOpen,setIsOpen] = useState(false);
 
   useEffect(() => {
-    setSections(sortArrayOfObjectsByProperty(initialSections, 'position'));
+    setSections(sortArrayOfSectionsByPosition(initialSections));
     setDocuments(initialDocuments);
   }, []);
 
@@ -39,10 +39,17 @@ function App() {
 
   function saveSection(section){
 
+    const newSectionPosition = section.position;
+
     var updatedSections = sections;
+    for(let i = 0; i < updatedSections.length; i++){
+      if(newSectionPosition <= updatedSections[i].position){
+        updatedSections[i].position = updatedSections[i].position + 1;
+      }
+    }
     updatedSections.push(section);
 
-    setSections([...sortArrayOfObjectsByProperty(updatedSections, 'position')])
+    setSections([...sortArrayOfSectionsByPosition(updatedSections)]);
 
     setIsOpen(false);
   }

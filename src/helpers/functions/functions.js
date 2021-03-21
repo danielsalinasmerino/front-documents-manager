@@ -1,9 +1,9 @@
 //
-// Sorts an array of objects by one of the properties of the objects
+// Sorts an array of sections by the position
 //
-export function sortArrayOfObjectsByProperty(anArrayOfObjects, propertyName){
+export function sortArrayOfSectionsByPosition(anArrayOfSections){
 
-    return anArrayOfObjects.sort((a, b) => (a.propertyName) - (b.propertyName));
+    return anArrayOfSections.sort((a, b) => (a.position) - (b.position));
 }
 
 //

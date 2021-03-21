@@ -1,5 +1,6 @@
 import './SectionModalComponent.scss';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Select from 'react-select'
 
 // Project Components imports
 import StyledButtonComponent from '../styled-button-component/StyledButtonComponent';
@@ -20,7 +21,21 @@ function SectionModalComponent(props) {
 
     const [contentSection, setContentSection] = useState("");
 
+    const [positionsArray, setPostitionsArray] = useState([]);
+    const [position, setPostition] = useState(props.sectiongsLength + 1);
+
     const [titleDocument, setTitleDocument] = useState("");
+
+    useEffect(() => {
+
+        // We create the options for the positions
+        var positionsArray = [];
+        for(let i = 1; i < (props.sectiongsLength + 2); i++){
+            positionsArray.push({value: i, label: i.toString()});
+        }
+        setPostitionsArray(positionsArray);
+
+    }, []);
 
     function saveSection(){
     
@@ -39,7 +54,7 @@ function SectionModalComponent(props) {
                 contentSectionTrim,
                 new Date(),
                 new Date(),
-                (props.sectiongsLength + 1),
+                position,
                 null, // To do (parentID)
                 null  // To do (portalID)
             );
@@ -78,6 +93,16 @@ function SectionModalComponent(props) {
                     id="contentSection"
                     value={contentSection}
                     onChange={(e) => setContentSection(e.target.value)}/>
+            </div>
+            <div className="inputWrapper">
+                <p className="inputTitle">Posición</p>
+                <div className="ownSelector">
+                    <Select 
+                        defaultValue={{value: (props.sectiongsLength + 1), label: (props.sectiongsLength + 1).toString()}}
+                        placeholder="Escoja la posición de la sección (obligatorio)"
+                        options={positionsArray} 
+                        onChange={(e) => setPostition(e.value)}/>
+                </div>
             </div>
             <div className="inputWrapper">
                 <p className="inputTitle">Documentos</p>
