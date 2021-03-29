@@ -6,7 +6,7 @@ import Select from 'react-select'
 import StyledButtonComponent from '../styled-button-component/StyledButtonComponent';
 
 // Import images 
-import closeModal from '../../assets/images/close.png'; 
+import closeModalImageRoute from '../../assets/images/close.png'; 
 
 // Import classes
 import { Section } from '../../models/section';
@@ -14,7 +14,7 @@ import { Section } from '../../models/section';
 // Other imports
 import { makeId } from '../../helpers/functions/functions';
 
-function SectionModalComponent(props) {
+function SectionModalComponent({ sectiongsLength, saveSectionCallBack,  closeModal}) {
 
     const [titleSection, setTitleSection] = useState("");
     const [errorTitle, setErrorTitle] = useState(false);
@@ -22,7 +22,7 @@ function SectionModalComponent(props) {
     const [contentSection, setContentSection] = useState("");
 
     const [positionsArray, setPostitionsArray] = useState([]);
-    const [position, setPostition] = useState(props.sectiongsLength + 1);
+    const [position, setPostition] = useState(sectiongsLength + 1);
 
     const [documentUploaded, setDocumentUploaded] = useState(false);
     const [titleDocument, setTitleDocument] = useState("");
@@ -32,7 +32,7 @@ function SectionModalComponent(props) {
 
         // We create the options for the positions
         var positionsArray = [];
-        for(let i = 1; i < (props.sectiongsLength + 2); i++){
+        for(let i = 1; i < (sectiongsLength + 2); i++){
             positionsArray.push({value: i, label: i.toString()});
         }
         setPostitionsArray(positionsArray);
@@ -61,7 +61,7 @@ function SectionModalComponent(props) {
                 null  // To do (portalID)
             );
 
-            props.saveSection(newSection);
+            saveSectionCallBack(newSection);
         }
     }
 
@@ -83,7 +83,7 @@ function SectionModalComponent(props) {
         <div className="sectionModalWrapper">
             <div className="modalHeader">
                 <p className="titleHeader">Nueva sección</p>
-                <img className="closeModal" src={closeModal} alt="Close Modal" onClick={props.closeModal}/>
+                <img className="closeModal" src={closeModalImageRoute} alt="Close Modal" onClick={closeModal}/>
             </div>
             <div className="inputWrapper">
                 <p className="inputTitle">Título</p>
@@ -109,7 +109,7 @@ function SectionModalComponent(props) {
                 <p className="inputTitle">Posición</p>
                 <div className="ownSelector">
                     <Select 
-                        defaultValue={{value: (props.sectiongsLength + 1), label: (props.sectiongsLength + 1).toString()}}
+                        defaultValue={{value: (sectiongsLength + 1), label: (sectiongsLength + 1).toString()}}
                         placeholder="Escoja la posición de la sección (obligatorio)"
                         options={positionsArray} 
                         onChange={(e) => setPostition(e.value)}/>

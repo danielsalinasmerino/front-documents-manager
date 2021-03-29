@@ -87,7 +87,7 @@ function App() {
         contentLabel="Example Modal">
         <SectionModalComponent
           closeModal={closeModal}
-          saveSection={saveSection}
+          saveSectionCallBack={saveSection}
           title={'Nueva Sección'}
           sectiongsLength={sections.length}>
         </SectionModalComponent> 

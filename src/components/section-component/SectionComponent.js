@@ -1,17 +1,17 @@
 import './SectionComponent.scss';
 import React from 'react';
 
-function SectionComponent(props) {
+function SectionComponent({ title, description, documents}) {
 
   
 
   return (
     <div className="sectionWrapper">
-        <p className="sectionTittle">{props.title}</p>
-        <p className="sectionDescription">{props.description}</p>
+        <p className="sectionTittle">{title}</p>
+        <p className="sectionDescription">{description}</p>
         <ul className="sectionDocumentsList">
           { 
-            props.documents.map(element => 
+            documents.map(element => 
               <li key={element.idDocument} >
                 <a href={element.documentUrl}>{element.title}</a>
               </li> 
