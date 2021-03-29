@@ -41,19 +41,21 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack,  closeMod
 
     function saveSection(){
     
-        const titleSectionTrim = titleSection.trim();
+        // First we check the posible errors
+        const titleSectionError = checkTitleSectionErrors();
+        const documentError = checkDocumentErrors();
 
-        if(titleSectionTrim.length === 0){
-            setErrorTitle(true);
+        if(titleSectionError || documentError){
+            // If we find errors we let the user know them
+            (titleSectionError && setErrorTitle(true));
+            (documentError && setErrorTitleDocument(true));
         }
         else {
-
-            const contentSectionTrim = contentSection.trim();
-
+            // If we do not find errors we save the section
             const newSection = new Section(
                 makeId(),
-                titleSectionTrim,
-                contentSectionTrim,
+                titleSection.trim(),
+                contentSection.trim(),
                 new Date(),
                 new Date(),
                 position,
@@ -63,6 +65,20 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack,  closeMod
 
             saveSectionCallBack(newSection);
         }
+    }
+
+    const checkTitleSectionErrors = () => {
+        const titleSectionTrim = titleSection.trim();
+        return (titleSectionTrim.length === 0);
+    }
+
+    const checkDocumentErrors = () => {
+        var documentError = false;
+        if(documentUploaded){
+            const titleDocumentTrim = titleDocument.trim();
+            documentError = (titleDocumentTrim.length === 0);
+        }
+        return documentError;
     }
 
     function onChangeTitleSection(e){
@@ -77,6 +93,7 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack,  closeMod
 
     function onChangeTitleDocument(e){
         setTitleDocument(e);
+        setErrorTitleDocument(false);
     }
 
     return (
@@ -123,13 +140,13 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack,  closeMod
                     id="file" 
                     name="myfile"
                     onChange={(e) => onChangeDocument(e.target.value)}/>
-                <input
-                    className="ownInput"
+                { documentUploaded && <input
+                    className={errorTitleDocument ? "ownInput error" : "ownInput"}
                     placeholder="Escriba el título del documento"
                     type="text"
                     id="titleDocument"
                     value={titleDocument}
-                    onChange={(e) => onChangeTitleDocument(e.target.value)}/>
+                    onChange={(e) => onChangeTitleDocument(e.target.value)}/> } 
             </div>
             <div className="bottomWrapper">
                 <StyledButtonComponent
