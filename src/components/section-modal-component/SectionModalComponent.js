@@ -17,14 +17,16 @@ import { makeId } from '../../helpers/functions/functions';
 function SectionModalComponent(props) {
 
     const [titleSection, setTitleSection] = useState("");
-    const [errorTitle, setErrorTitle ] = useState(false);
+    const [errorTitle, setErrorTitle] = useState(false);
 
     const [contentSection, setContentSection] = useState("");
 
     const [positionsArray, setPostitionsArray] = useState([]);
     const [position, setPostition] = useState(props.sectiongsLength + 1);
 
+    const [documentUploaded, setDocumentUploaded] = useState(false);
     const [titleDocument, setTitleDocument] = useState("");
+    const [errorTitleDocument, setErrorTitleDocument] = useState(false);
 
     useEffect(() => {
 
@@ -68,6 +70,15 @@ function SectionModalComponent(props) {
         setErrorTitle(false);
     }
 
+    function onChangeDocument(e){
+        setDocumentUploaded(true);
+        setTitleDocument(((e.slice((e.lastIndexOf("\\") + 1), e.length)).trim()));
+    }
+
+    function onChangeTitleDocument(e){
+        setTitleDocument(e);
+    }
+
     return (
         <div className="sectionModalWrapper">
             <div className="modalHeader">
@@ -107,17 +118,18 @@ function SectionModalComponent(props) {
             <div className="inputWrapper">
                 <p className="inputTitle">Documentos</p>
                 <input 
-                    className="ownInput"
+                    className="ownInput ownInputFile"
                     type="file" 
                     id="file" 
-                    name="myfile"/>
+                    name="myfile"
+                    onChange={(e) => onChangeDocument(e.target.value)}/>
                 <input
                     className="ownInput"
-                    placeholder="Escriba el título del documento (obligatorio)"
+                    placeholder="Escriba el título del documento"
                     type="text"
                     id="titleDocument"
                     value={titleDocument}
-                    onChange={(e) => setTitleDocument(e.target.value)}/>
+                    onChange={(e) => onChangeTitleDocument(e.target.value)}/>
             </div>
             <div className="bottomWrapper">
                 <StyledButtonComponent
