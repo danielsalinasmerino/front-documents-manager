@@ -83,8 +83,28 @@
             font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
             background-color: #fbfbfb;
         }
+
         .ownTextarea:focus {
             outline: none;
+        }
+
+        .contentLength {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: flex-end;
+
+            width: 100%;
+            margin-top: 7px;
+
+            font-size: 14px;
+            font-weight: 400;
+
+            color: #4664A2;
+        }
+
+        .errorContentLength {
+            color: red; 
         }
 
         .ownSelector {
@@ -100,6 +120,7 @@
 
         .error {
             border-bottom: 1px solid red;
+            color: red;
         }
 
         .error::placeholder {

@@ -16,6 +16,8 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
     const [errorTitle, setErrorTitle] = useState(false);
 
     const [contentSection, setContentSection] = useState("");
+    const [errorContent, setErrorContent] = useState(false);
+    const maxContentLength = "4000";
 
     const [positionsArray, setPostitionsArray] = useState([]);
     const [position, setPostition] = useState(sectiongsLength + 1);
@@ -41,7 +43,7 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
         const titleSectionError = checkTitleSectionErrors();
         const documentError = checkDocumentErrors();
 
-        if(titleSectionError || documentError){
+        if(titleSectionError || documentError || errorContent){
             // If we find errors we let the user know them
             (titleSectionError && setErrorTitle(true));
             (documentError && setErrorTitleDocument(true));
@@ -96,6 +98,11 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
         setErrorTitle(false);
     }
 
+    function onChangeContentSection(e){
+        setContentSection(e.target.value);
+        (e.target.value.length > maxContentLength) ? setErrorContent(true) : setErrorContent(false);
+    }
+
     function onChangeDocument(e){
         setDocumentUploaded(true);
         setTitleDocument(((e.slice((e.lastIndexOf("\\") + 1), e.length)).trim()));
@@ -125,12 +132,13 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
             <div className="inputWrapper">
                 <p className="inputTitle">Contenido</p>
                 <textarea
-                    className="ownTextarea"
+                    className={errorContent ? "ownTextarea error" : "ownTextarea"}
                     placeholder="Escriba el contenido de la sección (opcional)"
                     type="text"
                     id="contentSection"
                     value={contentSection}
-                    onChange={(e) => setContentSection(e.target.value)}/>
+                    onChange={(e) => onChangeContentSection(e)}/>
+                <span className={errorContent ? "contentLength errorContentLength" : "contentLength"}>{contentSection.length}/{maxContentLength}</span>
             </div>
             <div className="inputWrapper">
                 <p className="inputTitle">Posición</p>
