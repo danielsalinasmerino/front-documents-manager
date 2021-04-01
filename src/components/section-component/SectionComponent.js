@@ -1,5 +1,6 @@
-import './SectionComponent.scss';
 import React from 'react';
+
+import './SectionComponent.scss';
 
 function SectionComponent({ title, description, documents}) {
 

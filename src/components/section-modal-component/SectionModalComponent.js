@@ -1,18 +1,13 @@
-import './SectionModalComponent.scss';
 import React, { useState, useEffect } from 'react';
-import Select from 'react-select'
+import Select from 'react-select';
 
-// Project Components imports
 import StyledButtonComponent from '../styled-button-component/StyledButtonComponent';
 
-// Import images 
-import closeModalImageRoute from '../../assets/images/close.png'; 
-
-// Import classes
+import closeModalImageRoute from '../../assets/images/close.png';
+import { makeId } from '../../helpers/functions/functions'; 
 import { Section } from '../../models/section';
 
-// Other imports
-import { makeId } from '../../helpers/functions/functions';
+import './SectionModalComponent.scss';
 
 function SectionModalComponent({ sectiongsLength, saveSectionCallBack,  closeModal}) {
 

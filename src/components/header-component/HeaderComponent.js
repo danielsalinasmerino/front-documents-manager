@@ -1,13 +1,11 @@
-import './HeaderComponent.scss';
 import React from 'react';
 
-//Import images
 import logoEtsit from '../../assets/images/header/logo-etsit.png'; 
 import logoUPM from '../../assets/images/header/LOGO-UPM-WT.png'; 
 import optionsIcon from '../../assets/images/header/options.png';
-
-// Import links
 import { upmLink, etsitLink } from '../../helpers/constants/links';
+
+import './HeaderComponent.scss';
 
 function HeaderComponent({ section }) {
 

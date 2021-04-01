@@ -1,21 +1,19 @@
-// Libraries imports
-import './App.scss';
-import React, { useEffect, useState } from 'react';
+
 import Modal from 'react-modal';
+import React, { useEffect, useState } from 'react';
 
-// Project Components imports
-import SectionComponent from './components/section-component/SectionComponent';
 import HeaderComponent from './components/header-component/HeaderComponent';
-import StyledButtonComponent from './components/styled-button-component/StyledButtonComponent';
+import SectionComponent from './components/section-component/SectionComponent';
 import SectionModalComponent from './components/section-modal-component/SectionModalComponent';
+import StyledButtonComponent from './components/styled-button-component/StyledButtonComponent';
 
-// Other imports
 import { initialSections } from './helpers/resources/initialSections';
 import { initialDocuments } from './helpers/resources/initialDocuments';
-import { sortArrayOfSectionsByPosition } from './helpers/functions/functions';
 import { modalCustomStyles } from './helpers/constants/modalCustomStyles';
+import { sortArrayOfSectionsByPosition } from './helpers/functions/functions';
 
-// Binding of the Modal to the App element
+import './App.scss';
+
 Modal.setAppElement(document.getElementById('addSection'));
 
 function App() {
