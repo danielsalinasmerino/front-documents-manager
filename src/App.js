@@ -20,7 +20,7 @@ function App() {
 
   const [sections, setSections] = useState([]);
   const [documents, setDocuments] = useState([]);
-  const [modalIsOpen,setIsOpen] = useState(false);
+  const [modalIsOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     setSections(sortArrayOfSectionsByPosition(initialSections));
@@ -51,6 +51,13 @@ function App() {
 
     setIsOpen(false);
   }
+
+  const saveDocument = (document) => {
+
+    var updatedDocuments = documents;
+    updatedDocuments.push(document);
+    setDocuments([...(updatedDocuments)]);
+}
 
   function getSectionDocuments(idSection){
     return documents.filter(document => { return document.sectionID === idSection });
@@ -86,6 +93,7 @@ function App() {
         <SectionModalComponent
           closeModal={closeModal}
           saveSectionCallBack={saveSection}
+          saveDocumentCallback={saveDocument}
           title={'Nueva Sección'}
           sectiongsLength={sections.length}>
         </SectionModalComponent> 

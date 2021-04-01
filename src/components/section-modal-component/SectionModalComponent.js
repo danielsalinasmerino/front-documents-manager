@@ -4,12 +4,13 @@ import Select from 'react-select';
 import StyledButtonComponent from '../styled-button-component/StyledButtonComponent';
 
 import closeModalImageRoute from '../../assets/images/close.png';
+import { Document } from '../../models/document';
 import { makeId } from '../../helpers/functions/functions'; 
 import { Section } from '../../models/section';
 
 import './SectionModalComponent.scss';
 
-function SectionModalComponent({ sectiongsLength, saveSectionCallBack,  closeModal}) {
+function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocumentCallback,  closeModal}) {
 
     const [titleSection, setTitleSection] = useState("");
     const [errorTitle, setErrorTitle] = useState(false);
@@ -57,6 +58,20 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack,  closeMod
                 null, // To do (parentID)
                 null  // To do (portalID)
             );
+
+            if(documentUploaded){
+                // If we find errors we save the section
+                const newDocument = new Document(
+                    makeId(),
+                    titleDocument.trim(),
+                    'https://www.google.es/',
+                    new Date(),
+                    new Date(),
+                    newSection.idSection
+                ); 
+
+                saveDocumentCallback(newDocument)
+            }
 
             saveSectionCallBack(newSection);
         }
