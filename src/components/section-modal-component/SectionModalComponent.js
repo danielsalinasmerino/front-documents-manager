@@ -168,6 +168,10 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
             </div>
             <div className="bottomWrapper">
                 <StyledButtonComponent
+                    buttonText={'Cancelar'}
+                    clickButton={closeModal}>
+                </StyledButtonComponent>
+                <StyledButtonComponent
                     buttonText={'Guardar'}
                     clickButton={saveSection}>
                 </StyledButtonComponent>
