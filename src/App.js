@@ -1,9 +1,15 @@
 
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 import Modal from 'react-modal';
 import React, { useEffect, useState } from 'react';
 
 import HeaderComponent from './components/header-component/HeaderComponent';
-import SectionComponent from './components/section-component/SectionComponent';
+import SectionsComponent from './components//sections-component/SectionsComponent';
 import SectionModalComponent from './components/section-modal-component/SectionModalComponent';
 import StyledButtonComponent from './components/styled-button-component/StyledButtonComponent';
 
@@ -17,6 +23,8 @@ import './App.scss';
 Modal.setAppElement(document.getElementById('addSection'));
 
 function App() {
+
+  const portalName = 'PAS';
 
   const [sections, setSections] = useState([]);
   const [documents, setDocuments] = useState([]);
@@ -57,64 +65,59 @@ function App() {
     var updatedDocuments = documents;
     updatedDocuments.push(document);
     setDocuments([...(updatedDocuments)]);
-}
-
-  function getSectionDocuments(idSection){
-    return documents.filter(document => { return document.sectionID === idSection });
   }
 
   return (
-    <div className="main-wrapper">
+    <Router>
+      <Switch>
+        <Route path="/preview">
+          <div className="main-wrapper">
 
-      <HeaderComponent
-        section={'PAS'}>
-      </HeaderComponent>
+            <HeaderComponent portalName={portalName}/>
 
-      <div className="buttonsMenu">
-        <StyledButtonComponent
-          id="addSection"
-          clickButton={openModal}
-          buttonText={'Añadir Sección'}>
-        </StyledButtonComponent>
-        <StyledButtonComponent
-            buttonText={'Vista Previa'}>
-        </StyledButtonComponent>
-        <StyledButtonComponent
-            buttonText={'Guardar Cambios'}>
-        </StyledButtonComponent>
-      </div>
+            <h1>Bienvenido/a</h1>
 
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        style={modalCustomStyles}
-        ariaHideApp={false}
-        contentLabel="Example Modal">
-        <SectionModalComponent
-          closeModal={closeModal}
-          saveSectionCallBack={saveSection}
-          saveDocumentCallback={saveDocument}
-          title={'Nueva Sección'}
-          sectiongsLength={sections.length}>
-        </SectionModalComponent> 
-      </Modal>
-      
-      <h1>Bienvenido/a</h1>
+            <h2>Seleccione el tipo de impresos que desea:</h2>
 
-      <h2>Seleccione el tipo de impresos que desea:</h2>
+            <SectionsComponent sections={sections} documents={documents}/>
 
-      { 
-        sections.map(element => 
-          <SectionComponent 
-            key={element.idSection} 
-            title={element.title} 
-            description={element.description}
-            documents={getSectionDocuments(element.idSection)}>
-          </SectionComponent>
-        )
-      }
-    
-    </div>
+          </div>
+        </Route>
+        <Route path="/">
+          <div className="main-wrapper">
+
+            <HeaderComponent portalName={portalName} />
+
+            <h1>Bienvenido/a a la vista de edición de Documentación del {portalName}</h1>
+
+            <div className="buttonsMenu">
+              <StyledButtonComponent id="addSection" clickButton={openModal} buttonText={'Añadir Sección'}/>
+              <Link to="/preview" target="_blank">
+                <StyledButtonComponent buttonText={'Vista Previa'} />
+              </Link>
+              <StyledButtonComponent buttonText={'Guardar Cambios'} />
+            </div>
+
+            <Modal
+              isOpen={modalIsOpen}
+              onRequestClose={closeModal}
+              style={modalCustomStyles}
+              ariaHideApp={false}
+              contentLabel="Example Modal">
+              <SectionModalComponent
+                closeModal={closeModal}
+                saveSectionCallBack={saveSection}
+                saveDocumentCallback={saveDocument}
+                title={'Nueva Sección'}
+                sectiongsLength={sections.length}/>
+            </Modal>
+
+            <SectionsComponent sections={sections} documents={documents}/>
+
+          </div>
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
