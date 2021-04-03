@@ -14,7 +14,7 @@ function PreviewComponent({ portalName, sections, documents }) {
             <PreviewButtonsMenuComponent />
             <h1>Bienvenido/a</h1>
             <h2>Seleccione el tipo de impresos que desea:</h2>
-            <SectionsComponent sections={sections} documents={documents}/>
+            <SectionsComponent sections={sections} documents={documents} editableSections={false}/>
         </div>
     );
 }

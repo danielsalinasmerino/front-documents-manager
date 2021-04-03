@@ -65,7 +65,7 @@ function EditionComponent({ portalName, sections, documents, setSectionsCallback
                 title={'Nueva Sección'}
                 sectiongsLength={sections.length}/>
             </Modal>
-            <SectionsComponent sections={sections} documents={documents}/>
+            <SectionsComponent sections={sections} documents={documents} editableSections={true}/>
         </div>
     );
 }

@@ -2,10 +2,10 @@ import React from 'react';
 
 import './SectionComponent.scss';
 
-function SectionComponent({ title, description, documents}) {
+function SectionComponent({ title, description, documents, editableSection}) {
 
   return (
-    <div className="sectionWrapper">
+    <div className={editableSection ? "sectionWrapper editable" : "sectionWrapper"}>
         <p className="sectionTittle">{title}</p>
         <p className="sectionDescription">{description}</p>
         <ul className="sectionDocumentsList">

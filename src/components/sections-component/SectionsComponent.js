@@ -4,7 +4,7 @@ import SectionComponent from '../section-component/SectionComponent';
 
 import './SectionsComponent.scss';
 
-function SectionsComponent({ sections, documents }) {
+function SectionsComponent({ sections, documents, editableSections }) {
 
     const  getSectionDocuments = (idSection) => {
         return documents.filter(document => { return document.sectionID === idSection });
@@ -16,6 +16,7 @@ function SectionsComponent({ sections, documents }) {
                 sections.map(element => 
                     <SectionComponent 
                         key={element.idSection} 
+                        editableSection={editableSections}
                         title={element.title} 
                         description={element.description}
                         documents={getSectionDocuments(element.idSection)}>
