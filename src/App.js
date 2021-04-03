@@ -3,7 +3,6 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import Modal from 'react-modal';
 import React, { useEffect, useState } from 'react';
 
 import EditionComponent from './components/edition-component/EditionComponent';
@@ -16,8 +15,6 @@ import { sortArrayOfSectionsByPosition } from './helpers/functions/functions';
 
 import './App.scss';
 
-Modal.setAppElement(document.getElementById('addSection'));
-
 function App() {
 
   const portalName = 'PAS';
@@ -29,8 +26,6 @@ function App() {
     setSections(sortArrayOfSectionsByPosition(initialSections));
     setDocuments(initialDocuments);
   }, []);
-
-
 
   return (
     <Router>

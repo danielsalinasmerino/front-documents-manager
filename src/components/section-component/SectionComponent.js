@@ -4,8 +4,6 @@ import './SectionComponent.scss';
 
 function SectionComponent({ title, description, documents}) {
 
-  
-
   return (
     <div className="sectionWrapper">
         <p className="sectionTittle">{title}</p>

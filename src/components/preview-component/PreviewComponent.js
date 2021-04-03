@@ -7,8 +7,6 @@ import './PreviewComponent.scss';
 
 function PreviewComponent({ portalName, sections, documents }) {
 
-
-
     return (
         <div className="main-wrapper">
 

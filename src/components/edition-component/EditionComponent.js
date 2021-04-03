@@ -1,18 +1,15 @@
-import { Link } from "react-router-dom";
 import Modal from 'react-modal';
 import React, { useState } from 'react';
 
+import EditionButtonsMenuComponent from '../edition-buttons-menu-component/EditionButtonsMenuComponent';
 import HeaderComponent from '../header-component/HeaderComponent';
 import SectionsComponent from '../sections-component/SectionsComponent';
 import SectionModalComponent from '../section-modal-component/SectionModalComponent';
-import StyledButtonComponent from '../styled-button-component/StyledButtonComponent';
 
 import { modalCustomStyles } from '../../helpers/constants/modalCustomStyles';
 import { sortArrayOfSectionsByPosition } from '../../helpers/functions/functions';
 
 import './EditionComponent.scss';
-
-Modal.setAppElement(document.getElementById('addSection'));
 
 function EditionComponent({ portalName, sections, documents, setSectionsCallback, setDocumentsCallback }) {
 
@@ -57,13 +54,7 @@ function EditionComponent({ portalName, sections, documents, setSectionsCallback
 
             <h1>Bienvenido/a a la vista de edición de Documentación del {portalName}</h1>
 
-            <div className="buttonsMenu">
-              <StyledButtonComponent id="addSection" clickButton={openModal} buttonText={'Añadir Sección'}/>
-              <Link className="link-clean" to="/preview">
-                <StyledButtonComponent buttonText={'Vista Previa'} />
-              </Link>
-              <StyledButtonComponent buttonText={'Guardar Cambios'} />
-            </div>
+            <EditionButtonsMenuComponent openModalCallback={openModal} />
 
             <Modal
               isOpen={modalIsOpen}
@@ -76,7 +67,7 @@ function EditionComponent({ portalName, sections, documents, setSectionsCallback
                 saveSectionCallBack={saveSection}
                 saveDocumentCallback={saveDocument}
                 title={'Nueva Sección'}
-                sectiongsLength={sections.length}/>
+                sectiongsLength={sections.length} />
             </Modal>
 
             <SectionsComponent sections={sections} documents={documents}/>

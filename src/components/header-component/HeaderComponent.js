@@ -9,8 +9,6 @@ import './HeaderComponent.scss';
 
 function HeaderComponent({ portalName }) {
 
-
-
     return (
         <div className="headerMainWrapper">
             <div className="logosWrapper">
