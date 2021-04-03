@@ -12,15 +12,15 @@ function HeaderComponent({ portalName }) {
     return (
         <div className="headerMainWrapper">
             <div className="logosWrapper">
-                <a href={upmLink}><img className="logo" src={logoUPM} alt="UPM Logo" /></a>
-                <a href={etsitLink}><img className="logo" src={logoEtsit} alt="ETSIT Logo" /></a>
+                <a href={upmLink}><img className="logo" src={logoUPM} alt="UPM Logo"/></a>
+                <a href={etsitLink}><img className="logo" src={logoEtsit} alt="ETSIT Logo"/></a>
             </div> 
             <div className="infoWrapper">
                 <p className="title">Documentación del {portalName} (Impresos)</p>
                 <p className="sub"><a href={etsitLink}>Escuela Técnica Superior de Ingenieros de Telecomunicaciones</a> de la <a href={upmLink}>Universidad Politécnica de Madrid</a></p>
             </div>
             <div className="optionsWrapper">
-                <img className="optionsIcon" src={optionsIcon} alt="Options" />
+                <img className="optionsIcon" src={optionsIcon} alt="Options"/>
             </div> 
         </div>
     );

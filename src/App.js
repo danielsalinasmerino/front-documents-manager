@@ -1,6 +1,7 @@
 import {
   BrowserRouter as Router,
   Switch,
+  Redirect,
   Route,
 } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
@@ -33,10 +34,11 @@ function App() {
         <Route path="/preview">
           <PreviewComponent portalName={portalName} sections={sections} documents={documents}/>
         </Route>
-        <Route path="/">
+        <Route path="/edition">
           <EditionComponent portalName={portalName} sections={sections} documents={documents} setSectionsCallback={setSections} setDocumentsCallback={setDocuments}/>
         </Route>
       </Switch>
+      <Redirect to="/edition"/>
     </Router>
   );
 }

@@ -49,13 +49,9 @@ function EditionComponent({ portalName, sections, documents, setSectionsCallback
 
     return (
         <div className="main-wrapper">
-
-            <HeaderComponent portalName={portalName} />
-
+            <HeaderComponent portalName={portalName}/>
             <h1>Bienvenido/a a la vista de edición de Documentación del {portalName}</h1>
-
-            <EditionButtonsMenuComponent openModalCallback={openModal} />
-
+            <EditionButtonsMenuComponent openModalCallback={openModal}/>
             <Modal
               isOpen={modalIsOpen}
               onRequestClose={closeModal}
@@ -67,11 +63,9 @@ function EditionComponent({ portalName, sections, documents, setSectionsCallback
                 saveSectionCallBack={saveSection}
                 saveDocumentCallback={saveDocument}
                 title={'Nueva Sección'}
-                sectiongsLength={sections.length} />
+                sectiongsLength={sections.length}/>
             </Modal>
-
             <SectionsComponent sections={sections} documents={documents}/>
-
         </div>
     );
 }

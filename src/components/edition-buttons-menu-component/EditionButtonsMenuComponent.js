@@ -8,12 +8,12 @@ import './EditionButtonsMenuComponent.scss';
 function EditionButtonsMenuComponent({ openModalCallback }) {
 
     return (
-        <div className="buttonsMenu">
+        <div className="buttonsMenu editionView">
             <StyledButtonComponent clickButton={openModalCallback} buttonText={'Añadir Sección'}/>
             <Link className="link-clean" to="/preview">
-                <StyledButtonComponent buttonText={'Vista Previa'} />
+                <StyledButtonComponent buttonText={'Vista Previa'}/>
             </Link>
-            <StyledButtonComponent buttonText={'Guardar Cambios'} />
+            <StyledButtonComponent buttonText={'Guardar Cambios'}/>
         </div>
     );
 }
