@@ -30,14 +30,15 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
 
         // We create the options for the positions
         var positionsArray = [];
-        for(let i = 1; i < (sectiongsLength + 2); i++){
+        const sectiongsLengthHelper = sectiongsLength + 2;
+        for(let i = 1; i < sectiongsLengthHelper; i++){
             positionsArray.push({value: i, label: i.toString()});
         }
         setPostitionsArray(positionsArray);
 
-    }, []);
+    }, [sectiongsLength]);
 
-    function saveSection(){
+    const saveSection = () => {
     
         // First we check the posible errors
         const titleSectionError = checkTitleSectionErrors();
@@ -93,22 +94,22 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
         return documentError;
     }
 
-    function onChangeTitleSection(e){
+    const onChangeTitleSection = (e) => {
         setTitleSection(e.target.value);
         setErrorTitle(false);
     }
 
-    function onChangeContentSection(e){
+    const onChangeContentSection = (e) => {
         setContentSection(e.target.value);
         (e.target.value.length > maxContentLength) ? setErrorContent(true) : setErrorContent(false);
     }
 
-    function onChangeDocument(e){
+    const onChangeDocument = (e) => {
         setDocumentUploaded(true);
         setTitleDocument(((e.slice((e.lastIndexOf("\\") + 1), e.length)).trim()));
     }
 
-    function onChangeTitleDocument(e){
+    const onChangeTitleDocument = (e) => {
         setTitleDocument(e);
         setErrorTitleDocument(false);
     }
