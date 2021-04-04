@@ -15,9 +15,9 @@ function SectionOptionsComponent() {
 
   return (
     <div className="sectionOptions">
-        <SectionOptionComponent normalImageRoute={addImageRoute} hoveredImageRoute={addWhiteImageRoute} altText={"Add"} tooltipText={"Add"}/>
-        <SectionOptionComponent normalImageRoute={editImageRoute} hoveredImageRoute={editWhiteImageRoute} altText={"Edit"} tooltipText={"Edit"}/>
-        <SectionOptionComponent normalImageRoute={deleteImageRoute} hoveredImageRoute={deleteWhiteImageRoute} altText={"Delete"} tooltipText={"Delete"}/>
+        <SectionOptionComponent normalImageRoute={addImageRoute} hoveredImageRoute={addWhiteImageRoute} altText={"Add"} tooltipText={"Añadir subsección"}/>
+        <SectionOptionComponent normalImageRoute={editImageRoute} hoveredImageRoute={editWhiteImageRoute} altText={"Edit"} tooltipText={"Editar sección"}/>
+        <SectionOptionComponent normalImageRoute={deleteImageRoute} hoveredImageRoute={deleteWhiteImageRoute} altText={"Delete"} tooltipText={"Borrar sección"}/>
     </div>
   );
 }
