@@ -19,8 +19,7 @@ function SectionsComponent({ sections, documents, editableSections }) {
                         editableSection={editableSections}
                         title={element.title} 
                         description={element.description}
-                        documents={getSectionDocuments(element.idSection)}>
-                    </SectionComponent>
+                        documents={getSectionDocuments(element.idSection)}/>
                 )
             }
         </div>

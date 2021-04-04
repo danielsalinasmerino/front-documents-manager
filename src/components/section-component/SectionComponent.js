@@ -1,5 +1,6 @@
 import React from 'react';
 
+import DocumentsComponent from '../documents-component/DocumentsComponent';
 import SectionOptionsComponent from '../section-options-component/SectionOptionsComponent';
 
 import './SectionComponent.scss';
@@ -11,15 +12,7 @@ function SectionComponent({ title, description, documents, editableSection}) {
       <div className ="sectionMain">
         <p className="sectionTittle">{title}</p>
         <p className="sectionDescription">{description}</p>
-        <ul className="sectionDocumentsList">
-          { 
-            documents.map(element => 
-              <li key={element.idDocument} >
-                <a href={element.documentUrl}>{element.title}</a>
-              </li> 
-            )
-          }
-        </ul>
+        <DocumentsComponent documents={documents}/>
       </div>
       {
         editableSection && <SectionOptionsComponent />
