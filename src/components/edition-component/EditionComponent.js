@@ -14,12 +14,16 @@ import './EditionComponent.scss';
 function EditionComponent({ portalName, sections, documents, setSectionsCallback, setDocumentsCallback }) {
 
     const [modalIsOpen, setIsOpen] = useState(false);
+    const [editSectionMode, setEditSectionMode] = useState(false);
+    const [sectionToEdit, setSectionToEdit] = useState({});
 
     const openModal = () => {
         setIsOpen(true);
     }
     
     const closeModal = () => {
+        setSectionToEdit({});
+        setEditSectionMode(false);
         setIsOpen(false);
     }
     
@@ -41,14 +45,15 @@ function EditionComponent({ portalName, sections, documents, setSectionsCallback
     }
     
     const saveDocument = (document) => {
-    
         var updatedDocuments = documents;
         updatedDocuments.push(document);
         setDocumentsCallback([...(updatedDocuments)]);
     }
 
-    const editSection = (section) => {
-        console.log(section);
+    const openModalEditionMode = (section) => {
+        setSectionToEdit(section);
+        setEditSectionMode(true);
+        setIsOpen(true);
     }
 
     return (
@@ -56,7 +61,7 @@ function EditionComponent({ portalName, sections, documents, setSectionsCallback
             <HeaderComponent portalName={portalName}/>
             <h1>Bienvenido/a a la vista de edición de Documentación del {portalName}</h1>
             <EditionButtonsMenuComponent openModalCallback={openModal}/>
-            <SectionsComponent sections={sections} documents={documents} editableSections={true} editSectionCallback={editSection}/>
+            <SectionsComponent sections={sections} documents={documents} editableSections={true} editSectionCallback={openModalEditionMode}/>
             <Modal
               isOpen={modalIsOpen}
               onRequestClose={closeModal}
@@ -67,7 +72,8 @@ function EditionComponent({ portalName, sections, documents, setSectionsCallback
                 closeModal={closeModal}
                 saveSectionCallBack={saveSection}
                 saveDocumentCallback={saveDocument}
-                title={'Nueva Sección'}
+                editSectionMode={editSectionMode}
+                sectionToEdit={sectionToEdit}
                 sectiongsLength={sections.length}/>
             </Modal>
         </div>

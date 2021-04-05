@@ -10,7 +10,7 @@ import { Section } from '../../models/section';
 
 import './SectionModalComponent.scss';
 
-function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocumentCallback,  closeModal}) {
+function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocumentCallback, closeModal, editSectionMode, sectionToEdit}) {
 
     const [titleSection, setTitleSection] = useState("");
     const [errorTitle, setErrorTitle] = useState(false);
@@ -21,6 +21,7 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
 
     const [positionsArray, setPostitionsArray] = useState([]);
     const [position, setPostition] = useState(sectiongsLength + 1);
+    const [defaultPositionObject, setDefaultPositionObject] = useState({});
 
     const [documentUploaded, setDocumentUploaded] = useState(false);
     const [titleDocument, setTitleDocument] = useState("");
@@ -28,14 +29,25 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
 
     useEffect(() => {
 
-        // We create the options for the positions
         var positionsArray = [];
         const sectiongsLengthHelper = sectiongsLength + 2;
-        for(let i = 1; i < sectiongsLengthHelper; i++){
-            positionsArray.push({value: i, label: i.toString()});
-        }
-        setPostitionsArray(positionsArray);
 
+        if(editSectionMode){
+            setTitleSection(sectionToEdit.title);
+            setContentSection(sectionToEdit.description);
+            for(let i = 1; i < (sectiongsLengthHelper - 1); i++){
+                positionsArray.push({value: i, label: i.toString()});
+            }
+            setDefaultPositionObject({value: sectionToEdit.position, label: (sectionToEdit.position).toString()});
+            setPostitionsArray(positionsArray);
+        }
+        else {
+            for(let i = 1; i < sectiongsLengthHelper; i++){
+                positionsArray.push({value: i, label: i.toString()});
+            }
+            setDefaultPositionObject({value: (sectiongsLength + 1), label: (sectiongsLength + 1).toString()});
+            setPostitionsArray(positionsArray);
+        }
     }, [sectiongsLength]);
 
     const saveSection = () => {
@@ -117,7 +129,7 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
     return (
         <div className="sectionModalWrapper">
             <div className="modalHeader">
-                <p className="titleHeader">Nueva sección</p>
+                <p className="titleHeader">{editSectionMode ? 'Editar sección' : 'Nueva sección'}</p>
                 <img className="closeModal" src={closeModalImageRoute} alt="Close Modal" onClick={closeModal}/>
             </div>
             <div className="inputWrapper">
@@ -145,7 +157,7 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
                 <p className="inputTitle">Posición</p>
                 <div className="ownSelector">
                     <Select 
-                        defaultValue={{value: (sectiongsLength + 1), label: (sectiongsLength + 1).toString()}}
+                        defaultValue={defaultPositionObject}
                         placeholder="Escoja la posición de la sección (obligatorio)"
                         options={positionsArray} 
                         onChange={(e) => setPostition(e.value)}/>
