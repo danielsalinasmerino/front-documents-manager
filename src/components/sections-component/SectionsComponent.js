@@ -4,7 +4,11 @@ import SectionComponent from '../section-component/SectionComponent';
 
 import './SectionsComponent.scss';
 
-function SectionsComponent({ sections, documents, editableSections }) {
+function SectionsComponent({ sections, documents, editableSections, editSectionCallback }) {
+
+    const clickEditButton = (element) => {
+        editSectionCallback(element);
+    }
 
     const  getSectionDocuments = (idSection) => {
         return documents.filter(document => { return document.sectionID === idSection });
@@ -19,7 +23,8 @@ function SectionsComponent({ sections, documents, editableSections }) {
                         editableSection={editableSections}
                         title={element.title} 
                         description={element.description}
-                        documents={getSectionDocuments(element.idSection)}/>
+                        documents={getSectionDocuments(element.idSection)}
+                        clickEditButtonCallback={() => clickEditButton(element)}/>
                 )
             }
         </div>

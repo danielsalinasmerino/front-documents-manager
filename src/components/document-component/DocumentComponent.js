@@ -2,10 +2,10 @@ import React from 'react';
 
 import './DocumentComponent.scss';
 
-function DocumentComponent({ key, documentUrl, title }) {
+function DocumentComponent({ documentUrl, title }) {
 
     return (
-        <li key={key} >
+        <li>
             <a href={documentUrl}>{title}</a>
         </li> 
     );

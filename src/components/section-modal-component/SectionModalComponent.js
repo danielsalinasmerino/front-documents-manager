@@ -73,7 +73,7 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
                     newSection.idSection
                 ); 
 
-                saveDocumentCallback(newDocument)
+                saveDocumentCallback(newDocument);
             }
 
             saveSectionCallBack(newSection);

@@ -47,12 +47,16 @@ function EditionComponent({ portalName, sections, documents, setSectionsCallback
         setDocumentsCallback([...(updatedDocuments)]);
     }
 
+    const editSection = (section) => {
+        console.log(section);
+    }
+
     return (
         <div className="main-wrapper">
             <HeaderComponent portalName={portalName}/>
             <h1>Bienvenido/a a la vista de edición de Documentación del {portalName}</h1>
             <EditionButtonsMenuComponent openModalCallback={openModal}/>
-            <SectionsComponent sections={sections} documents={documents} editableSections={true}/>
+            <SectionsComponent sections={sections} documents={documents} editableSections={true} editSectionCallback={editSection}/>
             <Modal
               isOpen={modalIsOpen}
               onRequestClose={closeModal}

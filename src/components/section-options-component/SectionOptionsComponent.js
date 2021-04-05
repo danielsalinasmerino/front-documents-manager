@@ -11,12 +11,12 @@ import deleteWhiteImageRoute from '../../assets/images/section-options/delete-wh
 
 import './SectionOptionsComponent.scss';
 
-function SectionOptionsComponent() {
+function SectionOptionsComponent({ clickEditButtonCallback }) {
 
   return (
     <div className="sectionOptions">
         <SectionOptionComponent normalImageRoute={addImageRoute} hoveredImageRoute={addWhiteImageRoute} altText={"Add"} tooltipText={"Añadir subsección"}/>
-        <SectionOptionComponent normalImageRoute={editImageRoute} hoveredImageRoute={editWhiteImageRoute} altText={"Edit"} tooltipText={"Editar sección"}/>
+        <SectionOptionComponent normalImageRoute={editImageRoute} hoveredImageRoute={editWhiteImageRoute} altText={"Edit"} tooltipText={"Editar sección"} clickOption={clickEditButtonCallback}/>
         <SectionOptionComponent normalImageRoute={deleteImageRoute} hoveredImageRoute={deleteWhiteImageRoute} altText={"Delete"} tooltipText={"Borrar sección"}/>
     </div>
   );
