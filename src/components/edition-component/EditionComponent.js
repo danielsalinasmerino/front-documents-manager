@@ -43,6 +43,22 @@ function EditionComponent({ portalName, sections, documents, setSectionsCallback
     
         setIsOpen(false);
     }
+
+    const editSection = (section) => {            
+        const edittedSectionPosition = section.position;            
+        
+        var updatedSections = [];        
+        updatedSections.push(section);        
+        for(let i = 0; i < sections.length; i++){          
+            if(!(section.idSection === sections[i].idSection)){            
+                updatedSections.push(sections[i]);          
+            }        
+        }
+        // Mejorar reorden de secciones cuando hay cambios de posiciones en una sección que editamos            
+        setSectionsCallback([...sortArrayOfSectionsByPosition(updatedSections)]);            
+        
+        setIsOpen(false);    
+    }
     
     const saveDocument = (document) => {
         var updatedDocuments = documents;
@@ -74,6 +90,7 @@ function EditionComponent({ portalName, sections, documents, setSectionsCallback
                 saveDocumentCallback={saveDocument}
                 editSectionMode={editSectionMode}
                 sectionToEdit={sectionToEdit}
+                editSectionCallBack={editSection}
                 sectiongsLength={sections.length}/>
             </Modal>
         </div>
