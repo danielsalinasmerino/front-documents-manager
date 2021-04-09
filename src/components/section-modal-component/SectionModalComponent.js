@@ -102,14 +102,15 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
             (titleSectionError && setErrorTitle(true));        
         }        
         else {            
-            // If we do not find errors we save the section            
-            var sectionEditted = sectionToEdit;            
-            sectionEditted.title = titleSection;            
-            sectionEditted.description = contentSection;            
-            sectionEditted.position = position;
-                    
-            editSectionCallBack(sectionEditted);        
-        }    
+            // If we do not find errors we save the section            
+            var sectionEditted = sectionToEdit;            
+            sectionEditted.title = titleSection;            
+            sectionEditted.description = contentSection;
+            sectionEditted.oldPosition = sectionEditted.position;         
+            sectionEditted.position = position;
+                    
+            editSectionCallBack(sectionEditted);        
+        }    
     }
 
     const checkTitleSectionErrors = () => {

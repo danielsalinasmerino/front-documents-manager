@@ -7,94 +7,92 @@ import SectionsComponent from '../sections-component/SectionsComponent';
 import SectionModalComponent from '../section-modal-component/SectionModalComponent';
 
 import { modalCustomStyles } from '../../helpers/constants/modalCustomStyles';
-import { sortArrayOfSectionsByPosition } from '../../helpers/functions/functions';
+import { sortArrayOfSectionsByPosition, reorderSectionsAfterEdition } from '../../helpers/functions/functions';
 
 import './EditionComponent.scss';
 
 function EditionComponent({ portalName, sections, documents, setSectionsCallback, setDocumentsCallback }) {
 
-    const [modalIsOpen, setIsOpen] = useState(false);
-    const [editSectionMode, setEditSectionMode] = useState(false);
-    const [sectionToEdit, setSectionToEdit] = useState({});
+    const [modalIsOpen, setIsOpen] = useState(false);
+    const [editSectionMode, setEditSectionMode] = useState(false);
+    const [sectionToEdit, setSectionToEdit] = useState({});
 
-    const openModal = () => {
-        setIsOpen(true);
-    }
-    
-    const closeModal = () => {
-        setSectionToEdit({});
-        setEditSectionMode(false);
-        setIsOpen(false);
-    }
-    
-    const saveSection = (section) => {
-    
-        const newSectionPosition = section.position;
-    
-        var updatedSections = sections;
-        for(let i = 0; i < updatedSections.length; i++){
-          if(newSectionPosition <= updatedSections[i].position){
-            updatedSections[i].position = updatedSections[i].position + 1;
-          }
-        }
-        updatedSections.push(section);
-    
-        setSectionsCallback([...sortArrayOfSectionsByPosition(updatedSections)]);
-    
-        setIsOpen(false);
-    }
+    const openModal = () => {
+        setIsOpen(true);
+    }
+    
+    const closeModal = () => {
+        setSectionToEdit({});
+        setEditSectionMode(false);
+        setIsOpen(false);
+    }
+    
+    const saveSection = (section) => {
+    
+        const newSectionPosition = section.position;
+    
+        var updatedSections = sections;
+        for(let i = 0; i < updatedSections.length; i++){
+          if(newSectionPosition <= updatedSections[i].position){
+            updatedSections[i].position = updatedSections[i].position + 1;
+          }
+        }
+        updatedSections.push(section);
+    
+        setSectionsCallback([...sortArrayOfSectionsByPosition(updatedSections)]);
+    
+        setIsOpen(false);
+    }
 
-    const editSection = (section) => {            
-        const edittedSectionPosition = section.position;            
-        
-        var updatedSections = [];        
-        updatedSections.push(section);        
-        for(let i = 0; i < sections.length; i++){          
-            if(!(section.idSection === sections[i].idSection)){            
-                updatedSections.push(sections[i]);          
-            }        
-        }
-        // Mejorar reorden de secciones cuando hay cambios de posiciones en una sección que editamos            
-        setSectionsCallback([...sortArrayOfSectionsByPosition(updatedSections)]);            
-        
-        setIsOpen(false);    
-    }
-    
-    const saveDocument = (document) => {
-        var updatedDocuments = documents;
-        updatedDocuments.push(document);
-        setDocumentsCallback([...(updatedDocuments)]);
-    }
+    const editSection = (section) => {           
 
-    const openModalEditionMode = (section) => {
-        setSectionToEdit(section);
-        setEditSectionMode(true);
-        setIsOpen(true);
-    }
+        const newPositionEdittedSection = section.position; 
+        const oldPositionEdittedSection = section.oldPosition;
+        delete section.oldPosition;
 
-    return (
-        <div className="main-wrapper">
-            <HeaderComponent portalName={portalName}/>
-            <h1>Bienvenido/a a la vista de edición de Documentación del {portalName}</h1>
-            <EditionButtonsMenuComponent openModalCallback={openModal}/>
-            <SectionsComponent sections={sections} documents={documents} editableSections={true} editSectionCallback={openModalEditionMode}/>
-            <Modal
-              isOpen={modalIsOpen}
-              onRequestClose={closeModal}
-              style={modalCustomStyles}
-              ariaHideApp={false}
-              contentLabel="New Section Modal">
-              <SectionModalComponent
-                closeModal={closeModal}
-                saveSectionCallBack={saveSection}
-                saveDocumentCallback={saveDocument}
-                editSectionMode={editSectionMode}
-                sectionToEdit={sectionToEdit}
-                editSectionCallBack={editSection}
-                sectiongsLength={sections.length}/>
-            </Modal>
-        </div>
-    );
+        var sectionsReordered = reorderSectionsAfterEdition(sections, oldPositionEdittedSection, newPositionEdittedSection);
+        sectionsReordered[newPositionEdittedSection - 1] = section;
+                   
+        setSectionsCallback([...sectionsReordered]);            
+        
+        setIsOpen(false);    
+    }
+    
+    const saveDocument = (document) => {
+        var updatedDocuments = documents;
+        updatedDocuments.push(document);
+        setDocumentsCallback([...(updatedDocuments)]);
+    }
+
+    const openModalEditionMode = (section) => {
+        setSectionToEdit(section);
+        setEditSectionMode(true);
+        setIsOpen(true);
+    }
+
+    return (
+        <div className="main-wrapper">
+            <HeaderComponent portalName={portalName}/>
+            <h1>Bienvenido/a a la vista de edición de Documentación del {portalName}</h1>
+            <EditionButtonsMenuComponent openModalCallback={openModal}/>
+            <SectionsComponent sections={sections} documents={documents} editableSections={true} editSectionCallback={openModalEditionMode}/>
+            <Modal
+              isOpen={modalIsOpen}
+              onRequestClose={closeModal}
+              style={modalCustomStyles}
+              ariaHideApp={false}
+              contentLabel="New Section Modal">
+              <SectionModalComponent
+                closeModal={closeModal}
+                saveSectionCallBack={saveSection}
+                saveDocumentCallback={saveDocument}
+                editSectionMode={editSectionMode}
+                sectionToEdit={sectionToEdit}
+                editSectionCallBack={editSection}
+                sectiongsLength={sections.length}/>
+            </Modal>
+        </div>
+    );
 }
 
 export default EditionComponent;
