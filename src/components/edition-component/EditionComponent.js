@@ -7,7 +7,7 @@ import SectionsComponent from '../sections-component/SectionsComponent';
 import SectionModalComponent from '../section-modal-component/SectionModalComponent';
 
 import { modalCustomStyles } from '../../helpers/constants/modalCustomStyles';
-import { sortArrayOfSectionsByPosition, reorderSectionsAfterEdition } from '../../helpers/functions/functions';
+import { sortArrayOfSectionsByPosition, reorderSectionsAfterEdition, addNewSection } from '../../helpers/functions/functions';
 
 import './EditionComponent.scss';
 
@@ -17,7 +17,11 @@ function EditionComponent({ portalName, sections, documents, setSectionsCallback
     const [editSectionMode, setEditSectionMode] = useState(false);
     const [sectionToEdit, setSectionToEdit] = useState({});
 
-    const openModal = () => {
+    const openModal = (sectionToEdit = {}) => {
+        if(sectionToEdit !== {} && sectionToEdit.title){
+            setSectionToEdit(sectionToEdit);
+            setEditSectionMode(true);
+        }
         setIsOpen(true);
     }
     
@@ -29,20 +33,18 @@ function EditionComponent({ portalName, sections, documents, setSectionsCallback
     
     const saveSection = (section) => {
     
-        const newSectionPosition = section.position;
+        sections = addNewSection(sections, section);
     
-        var updatedSections = sections;
-        for(let i = 0; i < updatedSections.length; i++){
-          if(newSectionPosition <= updatedSections[i].position){
-            updatedSections[i].position = updatedSections[i].position + 1;
-          }
-        }
-        updatedSections.push(section);
-    
-        setSectionsCallback([...sortArrayOfSectionsByPosition(updatedSections)]);
-    
+        setSectionsCallback([...sortArrayOfSectionsByPosition(sections)]);
         setIsOpen(false);
     }
+
+    const saveDocument = (document) => {
+
+        documents.push(document);
+
+        setDocumentsCallback([...(documents)]);
+    }
 
     const editSection = (section) => {           
 
@@ -50,24 +52,11 @@ function EditionComponent({ portalName, sections, documents, setSectionsCallback
         const oldPositionEdittedSection = section.oldPosition;
         delete section.oldPosition;
 
-        var sectionsReordered = reorderSectionsAfterEdition(sections, oldPositionEdittedSection, newPositionEdittedSection);
-        sectionsReordered[newPositionEdittedSection - 1] = section;
+        sections = reorderSectionsAfterEdition(sections, oldPositionEdittedSection, newPositionEdittedSection);
+        sections[newPositionEdittedSection - 1] = section;
                    
-        setSectionsCallback([...sectionsReordered]);            
-        
+        setSectionsCallback([...sections]);            
         setIsOpen(false);    
-    }
-    
-    const saveDocument = (document) => {
-        var updatedDocuments = documents;
-        updatedDocuments.push(document);
-        setDocumentsCallback([...(updatedDocuments)]);
-    }
-
-    const openModalEditionMode = (section) => {
-        setSectionToEdit(section);
-        setEditSectionMode(true);
-        setIsOpen(true);
     }
 
     return (
@@ -75,7 +64,7 @@ function EditionComponent({ portalName, sections, documents, setSectionsCallback
             <HeaderComponent portalName={portalName}/>
             <h1>Bienvenido/a a la vista de edición de Documentación del {portalName}</h1>
             <EditionButtonsMenuComponent openModalCallback={openModal}/>
-            <SectionsComponent sections={sections} documents={documents} editableSections={true} editSectionCallback={openModalEditionMode}/>
+            <SectionsComponent sections={sections} documents={documents} editableSections={true} editSectionCallback={openModal}/>
             <Modal
               isOpen={modalIsOpen}
               onRequestClose={closeModal}

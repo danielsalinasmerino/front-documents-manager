@@ -51,3 +51,21 @@ export function reorderSectionsAfterEdition(anArrayOfSections, edittedSectionOld
     // We return the array, ordered by position
     return sortArrayOfSectionsByPosition(anArrayOfSections);
 }
+
+//
+// Add a new section to the lot
+//
+export function addNewSection(oldSections, newSection){
+
+    const newSectionPosition = newSection.position;
+    
+     for(let i = 0; i < oldSections.length; i++){
+        if(newSectionPosition <= oldSections[i].position){
+            oldSections[i].position = oldSections[i].position + 1;
+        }
+    }
+
+    oldSections.push(newSection);
+
+    return oldSections;
+}
