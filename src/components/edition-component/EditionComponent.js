@@ -7,7 +7,7 @@ import SectionsComponent from '../sections-component/SectionsComponent';
 import SectionModalComponent from '../section-modal-component/SectionModalComponent';
 
 import { modalCustomStyles } from '../../helpers/constants/modalCustomStyles';
-import { sortArrayOfSectionsByPosition, reorderSectionsAfterEdition, addNewSection } from '../../helpers/functions/functions';
+import { sortArrayOfSectionsByPosition, reorderSectionsAfterEdition, addNewSection, deleteSelectedSection } from '../../helpers/functions/functions';
 
 import './EditionComponent.scss';
 
@@ -59,12 +59,20 @@ function EditionComponent({ portalName, sections, documents, setSectionsCallback
         setIsOpen(false);    
     }
 
+    const deleteSection = (section) => {
+
+        sections = deleteSelectedSection(sections, section);
+                       
+        setSectionsCallback([...sections]);            
+        setIsOpen(false);    
+    }
+
     return (
         <div className="main-wrapper">
             <HeaderComponent portalName={portalName}/>
             <h1>Bienvenido/a a la vista de edición de Documentación del {portalName}</h1>
             <EditionButtonsMenuComponent openModalCallback={openModal}/>
-            <SectionsComponent sections={sections} documents={documents} editableSections={true} editSectionCallback={openModal}/>
+            <SectionsComponent sections={sections} documents={documents} editableSections={true} editSectionCallback={openModal} deleteSectionCallback={deleteSection}/>
             <Modal
               isOpen={modalIsOpen}
               onRequestClose={closeModal}

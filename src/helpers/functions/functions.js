@@ -69,3 +69,20 @@ export function addNewSection(oldSections, newSection){
 
     return oldSections;
 }
+
+//
+// Removes a section from the lot
+//
+export function deleteSelectedSection(oldSections, newSection){
+
+    const index = oldSections.indexOf(newSection);
+    if (index > -1) {
+        oldSections.splice(index, 1);
+    }
+
+    for(let i = 0; i < oldSections.length; i++){
+        oldSections[i].position = (i + 1);
+    }
+
+    return oldSections;
+}

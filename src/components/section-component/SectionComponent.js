@@ -5,7 +5,7 @@ import SectionOptionsComponent from '../section-options-component/SectionOptions
 
 import './SectionComponent.scss';
 
-function SectionComponent({ title, description, documents, editableSection, clickEditButtonCallback}) {
+function SectionComponent({ title, description, documents, editableSection, clickEditButtonCallback, clickDeleteButtonCallback}) {
 
   return (
     <div className={editableSection ? "sectionWrapper editable" : "sectionWrapper"}>
@@ -15,7 +15,7 @@ function SectionComponent({ title, description, documents, editableSection, clic
         <DocumentsComponent documents={documents}/>
       </div>
       {
-        editableSection && <SectionOptionsComponent clickEditButtonCallback={clickEditButtonCallback}/>
+        editableSection && <SectionOptionsComponent clickEditButtonCallback={clickEditButtonCallback} clickDeleteButtonCallback={clickDeleteButtonCallback}/>
       }
     </div>
   );
