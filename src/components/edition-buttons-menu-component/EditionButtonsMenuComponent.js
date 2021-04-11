@@ -13,7 +13,7 @@ function EditionButtonsMenuComponent({ openModalCallback }) {
             <Link className="link-clean" to="/preview">
                 <StyledButtonComponent buttonText={'Vista Previa'}/>
             </Link>
-            <StyledButtonComponent buttonText={'Guardar Cambios'}/>
+            <StyledButtonComponent buttonText={'Publicar Cambios'}/>
         </div>
     );
 }
