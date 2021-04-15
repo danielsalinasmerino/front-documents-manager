@@ -73,9 +73,9 @@ export function addNewSection(oldSections, newSection){
 //
 // Removes a section from the lot
 //
-export function deleteSelectedSection(oldSections, newSection){
+export function deleteSelectedSection(oldSections, sectionToRemove){
 
-    const index = oldSections.indexOf(newSection);
+    const index = oldSections.indexOf(sectionToRemove);
     if (index > -1) {
         oldSections.splice(index, 1);
     }
@@ -85,4 +85,17 @@ export function deleteSelectedSection(oldSections, newSection){
     }
 
     return oldSections;
+}
+
+//
+// Removes the documents from a section that is removed
+//
+export function deleteDocumentsFromSelectedSection(oldDocuments, sectionToRemove){
+    var newDocuments = [];
+    for(let i = 0; i < oldDocuments.length; i++){
+        if( sectionToRemove.idSection !== oldDocuments[i].sectionID){
+            newDocuments.push(oldDocuments[i]);
+        }
+    }
+    return newDocuments;
 }

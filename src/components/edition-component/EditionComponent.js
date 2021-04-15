@@ -7,7 +7,7 @@ import SectionsComponent from '../sections-component/SectionsComponent';
 import SectionModalComponent from '../section-modal-component/SectionModalComponent';
 
 import { modalCustomStyles } from '../../helpers/constants/modalCustomStyles';
-import { sortArrayOfSectionsByPosition, reorderSectionsAfterEdition, addNewSection, deleteSelectedSection } from '../../helpers/functions/functions';
+import { sortArrayOfSectionsByPosition, reorderSectionsAfterEdition, addNewSection, deleteSelectedSection, deleteDocumentsFromSelectedSection } from '../../helpers/functions/functions';
 
 import './EditionComponent.scss';
 
@@ -62,8 +62,10 @@ function EditionComponent({ portalName, sections, documents, setSectionsCallback
     const deleteSection = (section) => {
 
         sections = deleteSelectedSection(sections, section);
+        documents = deleteDocumentsFromSelectedSection(documents, section);
                        
-        setSectionsCallback([...sections]);            
+        setSectionsCallback([...sections]);
+        setDocumentsCallback([...(documents)]);            
         setIsOpen(false);    
     }
 
