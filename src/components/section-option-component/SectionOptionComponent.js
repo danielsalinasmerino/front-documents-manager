@@ -9,7 +9,7 @@ function SectionOptionComponent({ normalImageRoute, hoveredImageRoute, altText, 
   const [hovered, setHover] = useState(false);
 
   return (
-    <Tooltip title={tooltipText} placement="left">
+    <Tooltip title={tooltipText} placement="top">
         <div className="sectionOption" onMouseOver={() => setHover(true)} onMouseOut={() => setHover(false)} onClick={clickOption}>
             { !hovered && <img className="optionImage" src={normalImageRoute} alt={altText}/> }
             {  hovered && <img className="optionImage" src={hoveredImageRoute} alt={altText}/> }
