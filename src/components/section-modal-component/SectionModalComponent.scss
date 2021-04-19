@@ -32,6 +32,25 @@
         }
     }
 
+    .modalText {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        
+        width: 85%;
+
+        padding-top: 30px;
+        padding-bottom: 30px;
+
+        .text {
+            font-size: 18px;
+            font-weight: 500;
+
+            color: #4664A2;
+        }
+    }
+
     .inputWrapper {
         display: flex;
         flex-direction: column;
