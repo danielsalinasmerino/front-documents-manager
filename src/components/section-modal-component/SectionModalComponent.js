@@ -187,20 +187,26 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
                 </div>
             </div>
             <div className="inputWrapper">
-                <p className="inputTitle">Documentos</p>
+                <p className="inputTitle">A continuación puede añadir documentos o enlaces</p>
+                <p className="inputSubTitle">Documentos</p>
+                <p className="inputSubTitle">Documento</p>
                 <input 
-                    className="ownInput ownInputFile"
+                    className="ownInput ownInputFile marginRight small"
                     type="file" 
                     id="file" 
                     name="myfile"
                     onChange={(e) => onChangeDocument(e.target.value)}/>
-                { documentUploaded && <input
-                    className={errorTitleDocument ? "ownInput error" : "ownInput"}
-                    placeholder="Escriba el título del documento"
-                    type="text"
-                    id="titleDocument"
-                    value={titleDocument}
-                    onChange={(e) => onChangeTitleDocument(e.target.value)}/> } 
+                { documentUploaded && 
+                <div className="inputLine">
+                    <p className="lineText">El nombre del documento que se mostrará será:</p>
+                    <input
+                        className={errorTitleDocument ? "ownInput ownInputHalf error small" : "ownInput ownInputHalf small"}
+                        placeholder="Escriba el nombre del documento"
+                        type="text"
+                        id="titleDocument"
+                        value={titleDocument}
+                        onChange={(e) => onChangeTitleDocument(e.target.value)}/>
+                </div>} 
             </div>
             <div className="bottomWrapper">
                 <StyledButtonComponent

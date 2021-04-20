@@ -69,6 +69,31 @@
             color: #4664A2;
         }
 
+        .inputSubTitle {
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 7px !important;
+
+            color: #4664A2;
+        }
+
+        .inputLine {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: flex-start;
+
+            width: 100%;
+        }
+
+        .lineText {
+            width: 35%;
+
+            font-size: 16px;
+            font-weight: 500;
+            color: #4664A2;
+        }
+
         .ownInput {
             width: 100%;
             padding: 10px 5px;
@@ -80,6 +105,10 @@
 
             background-color: #fbfbfb;  
         }
+
+        .ownInputHalf {
+            width: 70%;
+        }
         
         .ownInput:focus {
             outline: none;
@@ -87,6 +116,10 @@
 
         .ownInputFile {
             margin-bottom: 10px;
+        }
+
+        .small {
+            font-size: 16px;
         }
 
         .ownTextarea {
@@ -157,4 +190,12 @@
         width: 100%;
     }
 
+}
+
+.smallMarginLeft {
+    margin-left: 10px;
+}
+
+.marginLeft {
+    margin-left: 25px;
 }
