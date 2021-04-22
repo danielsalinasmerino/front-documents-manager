@@ -22,9 +22,7 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
     const [positionsArray, setPostitionsArray] = useState([]);
     const [position, setPostition] = useState(0);
 
-    const [documentUploaded, setDocumentUploaded] = useState(false);
-    const [titleDocument, setTitleDocument] = useState("");
-    const [errorTitleDocument, setErrorTitleDocument] = useState(false);
+    const [documentsArray, setDocumentsArray] = useState([]);
 
     useEffect(() => {
 
@@ -58,7 +56,6 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
         if(titleSectionError || documentError || errorContent){
             // If we find errors we let the user know them
             (titleSectionError && setErrorTitle(true));
-            (documentError && setErrorTitleDocument(true));
         }
         else {
             // If we do not find errors we save the section
@@ -73,12 +70,11 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
                 null  // To do (portalID)
             );
 
-            if(documentUploaded){
-                // If we find errors we save the section
+            for(let i = 0; i < documentsArray.length; i++){
                 const newDocument = new Document(
                     makeId(),
-                    titleDocument.trim(),
-                    'https://www.google.es/',
+                    documentsArray[i].title.trim(),
+                    'https://www.google.es/', // TO DO
                     new Date(),
                     new Date(),
                     newSection.idSection
@@ -98,7 +94,7 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
         const documentError = checkDocumentErrors();
                 
         if(titleSectionError || documentError || errorContent){            
-            // If we find errors we let the user know them            
+            // If we find errors on the title we let the user know them            
             (titleSectionError && setErrorTitle(true));        
         }        
         else {            
@@ -120,9 +116,10 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
 
     const checkDocumentErrors = () => {
         var documentError = false;
-        if(documentUploaded){
-            const titleDocumentTrim = titleDocument.trim();
-            documentError = (titleDocumentTrim.length === 0);
+        for(let i = 0; i < documentsArray.length; i++){
+            if(documentsArray[i].error){
+                documentError = true;
+            }
         }
         return documentError;
     }
@@ -137,14 +134,33 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
         (e.target.value.length > maxContentLength) ? setErrorContent(true) : setErrorContent(false);
     }
 
-    const onChangeDocument = (e) => {
-        setDocumentUploaded(true);
-        setTitleDocument(((e.slice((e.lastIndexOf("\\") + 1), e.length)).trim()));
+    const addDocument = () => {
+        documentsArray.push({key: "document" + (documentsArray.length + 1), uploaded: false, title: "", error: true});
+        setDocumentsArray([...documentsArray]); 
     }
 
-    const onChangeTitleDocument = (e) => {
-        setTitleDocument(e);
-        setErrorTitleDocument(false);
+    const deleteDocument = (eKey) => {
+        const positionToChange = Number(eKey.slice(8)) - 1;
+        documentsArray.splice(positionToChange, 1);
+        for(let i = 0; i < documentsArray.length; i++){
+            documentsArray[i].key = "document" + (i + 1);
+        }
+        setDocumentsArray([...documentsArray]); 
+    }
+
+    const onChangeDocument = (e, eKey) => {
+        const positionToChange = Number(eKey.slice(8)) - 1;
+        documentsArray[positionToChange].uploaded = true;
+        documentsArray[positionToChange].title = (e.slice((e.lastIndexOf("\\") + 1), e.length)).trim();
+        documentsArray[positionToChange].error = false;
+        setDocumentsArray([...documentsArray]); 
+    }
+
+    const onChangeTitleDocument = (e, eKey) => {
+        const positionToChange = Number(eKey.slice(8)) - 1;
+        documentsArray[positionToChange].title = e.trim();
+        (e.trim().length > 0) ? documentsArray[positionToChange].error = false : documentsArray[positionToChange].error = true;
+        setDocumentsArray([...documentsArray]); 
     }
 
     return (
@@ -188,25 +204,34 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
             </div>
             <div className="inputWrapper">
                 <p className="inputTitle">A continuación puede añadir documentos o enlaces</p>
-                <p className="inputSubTitle">Documentos</p>
-                <p className="inputSubTitle">Documento</p>
-                <input 
-                    className="ownInput ownInputFile marginRight small"
-                    type="file" 
-                    id="file" 
-                    name="myfile"
-                    onChange={(e) => onChangeDocument(e.target.value)}/>
-                { documentUploaded && 
-                <div className="inputLine">
-                    <p className="lineText">El nombre del documento que se mostrará será:</p>
-                    <input
-                        className={errorTitleDocument ? "ownInput ownInputHalf error small" : "ownInput ownInputHalf small"}
-                        placeholder="Escriba el nombre del documento"
-                        type="text"
-                        id="titleDocument"
-                        value={titleDocument}
-                        onChange={(e) => onChangeTitleDocument(e.target.value)}/>
-                </div>} 
+                <p className="inputSubTitle" onClick={addDocument}>Documentos</p>
+
+
+                { 
+                    documentsArray.map(element => 
+                        <div key={element.key}>
+                            <input 
+                                className="ownInput ownInputFile marginRight small"
+                                type="file" 
+                                id="file" 
+                                name="myfile"
+                                onChange={(e) => onChangeDocument(e.target.value, element.key)}/>
+                                { element.uploaded && 
+                                <div className="inputLine">
+                                    <p className="lineText" onClick={() => deleteDocument(element.key)}>El nombre del documento que se mostrará será:</p>
+                                    <input
+                                        className={element.error ? "ownInput ownInputHalf error small" : "ownInput ownInputHalf small"}
+                                        placeholder="Escriba el nombre del documento"
+                                        type="text"
+                                        id="titleDocument"
+                                        value={element.title}
+                                        onChange={(e) => onChangeTitleDocument(e.target.value, element.key)}/>
+                                </div> }
+                        </div>
+                    )
+                }
+
+                
             </div>
             <div className="bottomWrapper">
                 <StyledButtonComponent
