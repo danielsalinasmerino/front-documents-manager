@@ -118,7 +118,7 @@
             margin-bottom: 10px;
         }
 
-        .small {
+        .smallFontSize {
             font-size: 16px;
         }
 
@@ -200,17 +200,21 @@
     margin-left: 25px;
 }
 
-.addDocumentImage {
+.smallMarginTop {
+    margin-top: 10px;
+}
+
+.marginTop {
+    margin-top: 25px;
+}
+
+.optionDocumentImage {
     width: 24px !important;
     height: 24px !important;
     margin-left: 20px;
-    margin-top: 10px;
     cursor: pointer;
 }
 
-.deleteDocumentImage {
-    width: 24px !important;
-    height: 24px !important;
-    margin-left: 20px;
-    cursor: pointer;
+.fullWidth {
+    width: 100%;
 }

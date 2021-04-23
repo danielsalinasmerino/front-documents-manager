@@ -73,16 +73,18 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
             );
 
             for(let i = 0; i < documentsArray.length; i++){
-                const newDocument = new Document(
-                    makeId(),
-                    documentsArray[i].title.trim(),
-                    'https://www.google.es/', // TO DO
-                    new Date(),
-                    new Date(),
-                    newSection.idSection
-                ); 
-
-                saveDocumentCallback(newDocument);
+                if(documentsArray[i].title.length !== 0){
+                    const newDocument = new Document(
+                        makeId(),
+                        documentsArray[i].title.trim(),
+                        'https://www.google.es/', // TO DO
+                        new Date(),
+                        new Date(),
+                        newSection.idSection
+                    ); 
+    
+                    saveDocumentCallback(newDocument);
+                }
             }
 
             saveSectionCallBack(newSection);
@@ -137,7 +139,7 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
     }
 
     const addDocument = () => {
-        documentsArray.push({key: "document" + (documentsArray.length + 1), uploaded: false, title: "", error: true});
+        documentsArray.push({key: "document" + (documentsArray.length + 1), uploaded: false, title: "", error: false});
         setDocumentsArray([...documentsArray]); 
     }
 
@@ -171,6 +173,7 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
                 <p className="titleHeader">{editSectionMode ? 'Editar sección' : 'Nueva sección'}</p>
                 <img className="closeModal" src={closeModalImageRoute} alt="Close Modal" onClick={closeModal}/>
             </div>
+
             <div className="inputWrapper">
                 <p className="inputTitle">Título</p>
                 <input
@@ -181,6 +184,7 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
                     value={titleSection}
                     onChange={(e) => onChangeTitleSection(e)}/>
             </div>
+
             <div className="inputWrapper">
                 <p className="inputTitle">Contenido</p>
                 <textarea
@@ -192,6 +196,7 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
                     onChange={(e) => onChangeContentSection(e)}/>
                 <span className={errorContent ? "contentLength errorContentLength" : "contentLength"}>{contentSection.length}/{maxContentLength}</span>
             </div>
+
             <div className="inputWrapper">
                 <p className="inputTitle">Posición</p>
                 <div className="ownSelector">
@@ -204,32 +209,30 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
                         onChange={(e) => setPostition(e.value)}/>
                 </div>
             </div>
+
             <div className="inputWrapper">
                 <p className="inputTitle">A continuación puede añadir documentos o enlaces</p>
                 <div className="inputLine">
                     <p className="inputSubTitle">Documentos</p>
-                    <img className="addDocumentImage" onClick={addDocument} src={addImageRoute} alt={"Añadir documento"}/>
+                    <img className="optionDocumentImage smallMarginTop" onClick={addDocument} src={addImageRoute} alt={"Añadir documento"}/>
                 </div>
-                
-
-
                 { 
                     documentsArray.map(element => 
-                        <div key={element.key}>
+                        <div key={element.key} className="fullWidth">
                             <div className="inputLine">
                             <input 
-                                className="ownInput ownInputFile marginRight small"
+                                className="ownInput ownInputFile marginTop smallFontSize "
                                 type="file" 
                                 id="file" 
                                 name="myfile"
                                 onChange={(e) => onChangeDocument(e.target.value, element.key)}/>
-                                <img className="deleteDocumentImage" onClick={() => deleteDocument(element.key)} src={deleteImageRoute} alt={"Borrar documento"}/>
+                                <img className="optionDocumentImage" onClick={() => deleteDocument(element.key)} src={deleteImageRoute} alt={"Borrar documento"}/>
                             </div>
                                 { element.uploaded && 
                                 <div className="inputLine">
                                     <p className="lineText">El nombre del documento que se mostrará será:</p>
                                     <input
-                                        className={element.error ? "ownInput ownInputHalf error small" : "ownInput ownInputHalf small"}
+                                        className={element.error ? "ownInput ownInputHalf error smallFontSize" : "ownInput ownInputHalf smallFontSize"}
                                         placeholder="Escriba el nombre del documento"
                                         type="text"
                                         id="titleDocument"
@@ -239,9 +242,8 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
                         </div>
                     )
                 }
-
-                
             </div>
+
             <div className="bottomWrapper">
                 <StyledButtonComponent
                     buttonText={'Cancelar'}
