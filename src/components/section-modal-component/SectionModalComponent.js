@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import Select from 'react-select';
 
 import StyledButtonComponent from '../styled-button-component/StyledButtonComponent';
 import SectionDocumentsInput from '../section-documents-input/SectionDocumentsInput';
+import SectionPositionInput from '../section-position-input/SectionPositionInput';
 import SectionTextInput from '../section-text-input/SectionTextInput';
 
 import closeModalImageRoute from '../../assets/images/close.png';
@@ -177,18 +177,7 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
             <SectionTextInput titleText={"Contenido"} errorMark={errorContent} styleValue={"ownTextarea"} placeHolderText={"Escriba el contenido de la sección (opcional)"} 
                 identifier={"contentSection"} valueToShow={contentSection} onChangeCallback={onChangeContentSection} textAreaMode={true} errorLengthSpan={true} maxContentLength={maxContentLength} />
 
-            <div className="inputWrapper">
-                <p className="inputTitle">Posición</p>
-                <div className="ownSelector">
-                    <Select 
-                        defaultValue={editSectionMode ?                             
-                            {value: sectionToEdit.position, label: (sectionToEdit.position).toString()} :                             
-                            {value: (sectiongsLength + 1), label: (sectiongsLength + 1).toString()}}
-                        placeholder="Escoja la posición de la sección (obligatorio)"
-                        options={positionsArray} 
-                        onChange={(e) => setPostition(e.value)}/>
-                </div>
-            </div>
+            <SectionPositionInput editSectionMode={editSectionMode } sectionToEdit={sectionToEdit} sectiongsLength={sectiongsLength} positionsArray={positionsArray} setPostitionCallback={setPostition}/>
 
             <SectionDocumentsInput addDocumentCallback={addDocument} onChangeDocumentCallback={onChangeDocument} 
                 onChangeTitleDocumentCallback={onChangeTitleDocument} deleteDocumentCallback={deleteDocument} documentsArray={documentsArray}/>
