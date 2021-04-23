@@ -3,9 +3,9 @@ import React, { useState, useEffect } from 'react';
 import StyledButtonComponent from '../styled-button-component/StyledButtonComponent';
 import SectionDocumentsInput from '../section-documents-input/SectionDocumentsInput';
 import SectionPositionInput from '../section-position-input/SectionPositionInput';
+import SectionModalHeader from '../section-modal-header/SectionModalHeader';
 import SectionTextInput from '../section-text-input/SectionTextInput';
 
-import closeModalImageRoute from '../../assets/images/close.png';
 import { Document } from '../../models/document';
 import { makeId } from '../../helpers/functions/functions'; 
 import { Section } from '../../models/section';
@@ -166,10 +166,7 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
 
     return (
         <div className="sectionModalWrapper">
-            <div className="modalHeader">
-                <p className="titleHeader">{editSectionMode ? 'Editar sección' : 'Nueva sección'}</p>
-                <img className="closeModal" src={closeModalImageRoute} alt="Close Modal" onClick={closeModal}/>
-            </div>
+            <SectionModalHeader title={editSectionMode ? 'Editar sección' : 'Nueva sección'} closeCallback={closeModal}/>
 
             <SectionTextInput titleText={"Título"} errorMark={errorTitle} styleValue={"ownInput"} placeHolderText={"Escriba el título de la sección (obligatorio)"} 
                 identifier={"titleSection"} valueToShow={titleSection} onChangeCallback={onChangeTitleSection}/>

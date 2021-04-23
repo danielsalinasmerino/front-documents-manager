@@ -1,8 +1,7 @@
 import React from 'react';
 
 import StyledButtonComponent from '../styled-button-component/StyledButtonComponent';
-
-import closeModalImageRoute from '../../assets/images/close.png';
+import SectionModalHeader from '../section-modal-header/SectionModalHeader';
 
 // We import the SCSS from the section modal component; it is not mandatory to duplicate the same code on different files
 import '../section-modal-component/SectionModalComponent.scss';
@@ -11,13 +10,12 @@ function DeleteSectionModalComponent({ closeDeleteSectionModal, confirmDeleteSec
 
     return (
         <div className="sectionModalWrapper">
-            <div className="modalHeader">
-                <p className="titleHeader">Borrar sección</p>
-                <img className="closeModal" src={closeModalImageRoute} alt="Close Modal" onClick={closeDeleteSectionModal}/>
-            </div>
+            <SectionModalHeader title={'Borrar sección'} closeCallback={closeDeleteSectionModal}/>
+
             <div className="modalText">
                 <p className="text">Si borra la sección, se borrarán tambien los documentos o enlaces asociados. ¿Está seguro de que desea borrar la sección?</p>
             </div>
+
             <div className="bottomWrapper">
                 <StyledButtonComponent
                     buttonText={'Cancelar'}
