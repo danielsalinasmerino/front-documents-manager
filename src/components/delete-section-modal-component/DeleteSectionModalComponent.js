@@ -1,6 +1,6 @@
 import React from 'react';
 
-import StyledButtonComponent from '../styled-button-component/StyledButtonComponent';
+import SectionModalBottomButtons from '../section-modal-bottom-buttons/SectionModalBottomButtons';
 import SectionModalHeader from '../section-modal-header/SectionModalHeader';
 
 // We import the SCSS from the section modal component; it is not mandatory to duplicate the same code on different files
@@ -16,16 +16,7 @@ function DeleteSectionModalComponent({ closeDeleteSectionModal, confirmDeleteSec
                 <p className="text">Si borra la sección, se borrarán tambien los documentos o enlaces asociados. ¿Está seguro de que desea borrar la sección?</p>
             </div>
 
-            <div className="bottomWrapper">
-                <StyledButtonComponent
-                    buttonText={'Cancelar'}
-                    clickButton={closeDeleteSectionModal}>
-                </StyledButtonComponent>
-                <StyledButtonComponent
-                    buttonText={'Borrar'}
-                    clickButton={confirmDeleteSection}>
-                </StyledButtonComponent>
-            </div>
+            <SectionModalBottomButtons cancelText={'Cancelar'} cancelCallback={closeDeleteSectionModal} confirmText={'Borrar'} confirmCallback={confirmDeleteSection}/>
         </div>
     );
 }

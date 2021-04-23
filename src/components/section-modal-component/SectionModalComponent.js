@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import StyledButtonComponent from '../styled-button-component/StyledButtonComponent';
+import SectionModalBottomButtons from '../section-modal-bottom-buttons/SectionModalBottomButtons';
 import SectionDocumentsInput from '../section-documents-input/SectionDocumentsInput';
 import SectionPositionInput from '../section-position-input/SectionPositionInput';
 import SectionModalHeader from '../section-modal-header/SectionModalHeader';
@@ -179,16 +179,7 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
             <SectionDocumentsInput addDocumentCallback={addDocument} onChangeDocumentCallback={onChangeDocument} 
                 onChangeTitleDocumentCallback={onChangeTitleDocument} deleteDocumentCallback={deleteDocument} documentsArray={documentsArray}/>
 
-            <div className="bottomWrapper">
-                <StyledButtonComponent
-                    buttonText={'Cancelar'}
-                    clickButton={closeModal}>
-                </StyledButtonComponent>
-                <StyledButtonComponent
-                    buttonText={'Guardar'}
-                    clickButton={editSectionMode ? editSection : saveSection}>
-                </StyledButtonComponent>
-            </div>
+            <SectionModalBottomButtons cancelText={'Cancelar'} cancelCallback={closeModal} confirmText={'Guardar'} confirmCallback={editSectionMode ? editSection : saveSection}/>
         </div>
     );
 }
