@@ -5,6 +5,7 @@ import StyledButtonComponent from '../styled-button-component/StyledButtonCompon
 
 import addImageRoute from '../../assets/images/section-options/add.png';
 import closeModalImageRoute from '../../assets/images/close.png';
+import deleteImageRoute from '../../assets/images/section-options/delete.png';
 import { Document } from '../../models/document';
 import { makeId } from '../../helpers/functions/functions'; 
 import { Section } from '../../models/section';
@@ -215,15 +216,18 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
                 { 
                     documentsArray.map(element => 
                         <div key={element.key}>
+                            <div className="inputLine">
                             <input 
                                 className="ownInput ownInputFile marginRight small"
                                 type="file" 
                                 id="file" 
                                 name="myfile"
                                 onChange={(e) => onChangeDocument(e.target.value, element.key)}/>
+                                <img className="deleteDocumentImage" onClick={() => deleteDocument(element.key)} src={deleteImageRoute} alt={"Borrar documento"}/>
+                            </div>
                                 { element.uploaded && 
                                 <div className="inputLine">
-                                    <p className="lineText" onClick={() => deleteDocument(element.key)}>El nombre del documento que se mostrará será:</p>
+                                    <p className="lineText">El nombre del documento que se mostrará será:</p>
                                     <input
                                         className={element.error ? "ownInput ownInputHalf error small" : "ownInput ownInputHalf small"}
                                         placeholder="Escriba el nombre del documento"
