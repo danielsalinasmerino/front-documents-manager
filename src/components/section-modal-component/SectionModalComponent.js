@@ -3,6 +3,7 @@ import Select from 'react-select';
 
 import StyledButtonComponent from '../styled-button-component/StyledButtonComponent';
 
+import addImageRoute from '../../assets/images/section-options/add.png';
 import closeModalImageRoute from '../../assets/images/close.png';
 import { Document } from '../../models/document';
 import { makeId } from '../../helpers/functions/functions'; 
@@ -204,7 +205,11 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
             </div>
             <div className="inputWrapper">
                 <p className="inputTitle">A continuación puede añadir documentos o enlaces</p>
-                <p className="inputSubTitle" onClick={addDocument}>Documentos</p>
+                <div className="inputLine">
+                    <p className="inputSubTitle">Documentos</p>
+                    <img className="addDocumentImage" onClick={addDocument} src={addImageRoute} alt={"Añadir documento"}/>
+                </div>
+                
 
 
                 { 
