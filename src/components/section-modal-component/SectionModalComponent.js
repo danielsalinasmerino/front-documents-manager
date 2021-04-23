@@ -3,6 +3,7 @@ import Select from 'react-select';
 
 import StyledButtonComponent from '../styled-button-component/StyledButtonComponent';
 import SectionDocumentsInput from '../section-documents-input/SectionDocumentsInput';
+import SectionTextInput from '../section-text-input/SectionTextInput';
 
 import closeModalImageRoute from '../../assets/images/close.png';
 import { Document } from '../../models/document';
@@ -91,7 +92,6 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
     }
 
     const editSection = () => {            
-        
         // First we check the posible errors        
         const titleSectionError = checkTitleSectionErrors();        
         const documentError = checkDocumentErrors();
@@ -120,9 +120,7 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
     const checkDocumentErrors = () => {
         var documentError = false;
         for(let i = 0; i < documentsArray.length; i++){
-            if(documentsArray[i].error){
-                documentError = true;
-            }
+            (documentsArray[i].error) ? (documentError = true) : (documentError = false);
         }
         return documentError;
     }
@@ -142,15 +140,6 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
         setDocumentsArray([...documentsArray]); 
     }
 
-    const deleteDocument = (eKey) => {
-        const positionToChange = Number(eKey.slice(8)) - 1;
-        documentsArray.splice(positionToChange, 1);
-        for(let i = 0; i < documentsArray.length; i++){
-            documentsArray[i].key = "document" + (i + 1);
-        }
-        setDocumentsArray([...documentsArray]); 
-    }
-
     const onChangeDocument = (e, eKey) => {
         const positionToChange = Number(eKey.slice(8)) - 1;
         documentsArray[positionToChange].uploaded = true;
@@ -166,6 +155,15 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
         setDocumentsArray([...documentsArray]); 
     }
 
+    const deleteDocument = (eKey) => {
+        const positionToChange = Number(eKey.slice(8)) - 1;
+        documentsArray.splice(positionToChange, 1);
+        for(let i = 0; i < documentsArray.length; i++){
+            documentsArray[i].key = "document" + (i + 1);
+        }
+        setDocumentsArray([...documentsArray]); 
+    }
+
     return (
         <div className="sectionModalWrapper">
             <div className="modalHeader">
@@ -173,28 +171,11 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
                 <img className="closeModal" src={closeModalImageRoute} alt="Close Modal" onClick={closeModal}/>
             </div>
 
-            <div className="inputWrapper">
-                <p className="inputTitle">Título</p>
-                <input
-                    className={errorTitle ? "ownInput error" : "ownInput"}
-                    placeholder="Escriba el título de la sección (obligatorio)"
-                    type="text"
-                    id="titleSection"
-                    value={titleSection}
-                    onChange={(e) => onChangeTitleSection(e)}/>
-            </div>
+            <SectionTextInput titleText={"Título"} errorMark={errorTitle} styleValue={"ownInput"} placeHolderText={"Escriba el título de la sección (obligatorio)"} 
+                identifier={"titleSection"} valueToShow={titleSection} onChangeCallback={onChangeTitleSection}/>
 
-            <div className="inputWrapper">
-                <p className="inputTitle">Contenido</p>
-                <textarea
-                    className={errorContent ? "ownTextarea error" : "ownTextarea"}
-                    placeholder="Escriba el contenido de la sección (opcional)"
-                    type="text"
-                    id="contentSection"
-                    value={contentSection}
-                    onChange={(e) => onChangeContentSection(e)}/>
-                <span className={errorContent ? "contentLength errorContentLength" : "contentLength"}>{contentSection.length}/{maxContentLength}</span>
-            </div>
+            <SectionTextInput titleText={"Contenido"} errorMark={errorContent} styleValue={"ownTextarea"} placeHolderText={"Escriba el contenido de la sección (opcional)"} 
+                identifier={"contentSection"} valueToShow={contentSection} onChangeCallback={onChangeContentSection} textAreaMode={true} errorLengthSpan={true} maxContentLength={maxContentLength} />
 
             <div className="inputWrapper">
                 <p className="inputTitle">Posición</p>
