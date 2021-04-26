@@ -14,6 +14,7 @@ export class Document {
       this.createdAt = createdAt;
       this.updatedAt = updatedAt;
       this.sectionID = sectionID;
+      this.onlyURL = onlyURL;
       this.originalDocumentName = originalDocumentName;
     }
 }

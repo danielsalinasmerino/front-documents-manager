@@ -6,8 +6,8 @@ import './SectionsComponent.scss';
 
 function SectionsComponent({ sections, documents, editableSections, editSectionCallback, deleteSectionCallback }) {
 
-    const clickEditButton = (element) => {
-        editSectionCallback(element);
+    const clickEditButton = (element, elementDocuments) => {
+        editSectionCallback(element, elementDocuments);
     }
 
     const clickDeleteButton = (element) => {
@@ -28,7 +28,7 @@ function SectionsComponent({ sections, documents, editableSections, editSectionC
                         title={element.title} 
                         description={element.description}
                         documents={getSectionDocuments(element.idSection)}
-                        clickEditButtonCallback={() => clickEditButton(element)}
+                        clickEditButtonCallback={() => clickEditButton(element, getSectionDocuments(element.idSection))}
                         clickDeleteButtonCallback={() => clickDeleteButton(element)}/>
                 )
             }

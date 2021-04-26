@@ -12,7 +12,7 @@ import { Section } from '../../models/section';
 
 import './SectionModalComponent.scss';
 
-function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocumentCallback, closeModal, editSectionMode, sectionToEdit, editSectionCallBack}) {
+function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocumentCallback, closeModal, editSectionMode, sectionToEdit, documentsToEdit, editSectionCallBack, editDocumentCallback}) {
 
     const [titleSection, setTitleSection] = useState("");
     const [errorTitle, setErrorTitle] = useState(false);
@@ -27,9 +27,7 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
     const [documentsArray, setDocumentsArray] = useState([]);
 
     useEffect(() => {
-
         var positionsArray = [];
-        
         const sectiongsLengthHelper = sectiongsLength + 2;
         for(let i = 1; i < sectiongsLengthHelper; i++){            
             positionsArray.push({value: i, label: i.toString()});        
@@ -38,7 +36,12 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
         if(editSectionMode){
             setTitleSection(sectionToEdit.title);
             setContentSection(sectionToEdit.description);
-            
+            for(let i = 0; i < documentsToEdit.length; i++){
+                documentsToEdit[i].key = "document" + (i + 1);
+                documentsToEdit[i].uploaded = true;
+                documentsToEdit[i].error = false;
+            }
+            setDocumentsArray([...documentsToEdit]); 
             positionsArray.pop();            
             setPostitionsArray(positionsArray);            
             setPostition(sectionToEdit.position);
@@ -47,10 +50,9 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
             setPostitionsArray(positionsArray);            
             setPostition(sectiongsLength + 1);
         }
-    }, [sectiongsLength, editSectionMode, sectionToEdit]);
+    }, [sectiongsLength, editSectionMode, sectionToEdit, documentsToEdit]);
 
     const saveSection = () => {
-    
         // First we check the posible errors
         const titleSectionError = checkTitleSectionErrors();
         const documentError = checkDocumentErrors();
@@ -71,26 +73,27 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
                 null, // To do (parentID)
                 null  // To do (portalID)
             );
-
             for(let i = 0; i < documentsArray.length; i++){
                 if(documentsArray[i].title.length !== 0){
-                    const newDocument = new Document(
-                        makeId(),
-                        documentsArray[i].title.trim(),
-                        'https://www.google.es/', // TO DO
-                        new Date(),
-                        new Date(),
-                        newSection.idSection,
-                        documentsArray[i].onlyURL,
-                        documentsArray[i].originalDocumentName
-                    ); 
-    
-                    saveDocumentCallback(newDocument);
+                    createNewDocumentAndSaveCallback(documentsArray[i], newSection.idSection);
                 }
             }
-
             saveSectionCallBack(newSection);
         }
+    }
+
+    const createNewDocumentAndSaveCallback = (documentData, parentSectionID) => {
+        const newDocument = new Document(
+            makeId(),
+            documentData.title.trim(),
+            'https://www.google.es/', // TO DO
+            new Date(),
+            new Date(),
+            parentSectionID,
+            documentData.onlyURL,
+            documentData.originalDocumentName
+        ); 
+        saveDocumentCallback(newDocument);
     }
 
     const editSection = () => {            
@@ -109,7 +112,16 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
             sectionEditted.description = contentSection;
             sectionEditted.oldPosition = sectionEditted.position;         
             sectionEditted.position = position;
-                    
+            for(let i = 0; i < documentsArray.length; i++){
+                if(documentsArray[i].title.length !== 0){
+                    if(documentsArray[i].idDocument !== undefined && documentsArray[i].idDocument !== null){
+                        editDocumentCallback(documentsArray[i]);
+                    }
+                    else {
+                        createNewDocumentAndSaveCallback(documentsArray[i], sectionEditted.idSection);
+                    }
+                }
+            } 
             editSectionCallBack(sectionEditted);        
         }    
     }
@@ -145,15 +157,18 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
     const onChangeDocument = (e, eKey) => {
         const positionToChange = Number(eKey.slice(8)) - 1;
         documentsArray[positionToChange].uploaded = true;
-        documentsArray[positionToChange].title = (e.slice((e.lastIndexOf("\\") + 1), e.length)).trim();
+        documentsArray[positionToChange].title = (e.slice((e.lastIndexOf("\\") + 1), e.length));
         documentsArray[positionToChange].originalDocumentName = (e.slice((e.lastIndexOf("\\") + 1), e.length)).trim();
         documentsArray[positionToChange].error = false;
+        if(documentsArray[positionToChange].documentUrl !== undefined && documentsArray[positionToChange].documentUrl !== null){
+            documentsArray[positionToChange].documentUrl = 'https://www.google.es/';
+        }
         setDocumentsArray([...documentsArray]); 
     }
 
     const onChangeTitleDocument = (e, eKey) => {
         const positionToChange = Number(eKey.slice(8)) - 1;
-        documentsArray[positionToChange].title = e.trim();
+        documentsArray[positionToChange].title = e;
         (e.trim().length > 0) ? documentsArray[positionToChange].error = false : documentsArray[positionToChange].error = true;
         setDocumentsArray([...documentsArray]); 
     }

@@ -18,14 +18,18 @@ function EditionComponent({ portalName, sections, documents, setSectionsCallback
     const [modalIsOpen, setIsOpen] = useState(false);
     const [editSectionMode, setEditSectionMode] = useState(false);
     const [sectionToEdit, setSectionToEdit] = useState({});
+    const [documentsToEdit, setDocumentsToEdit] = useState([]);
+    const [documentsToDelete, setDocumentsToDelete] = useState([]);
     const [modalDeleteSectonIsOpen, setModalDeleteSectonIsOpen] = useState(false);
     const [sectionToDelete, setSectionToDelete] = useState({});
 
     // Logic to create or edit a section
 
-    const openModal = (sectionToEdit = {}) => {
+    const openModal = (sectionToEdit = {}, documentsToEdit = []) => {
         if(sectionToEdit !== {} && sectionToEdit.title){
             setSectionToEdit(sectionToEdit);
+            setDocumentsToEdit([...documentsToEdit]); 
+            setDocumentsToDelete([...documentsToEdit]);
             setEditSectionMode(true);
         }
         setIsOpen(true);
@@ -33,37 +37,55 @@ function EditionComponent({ portalName, sections, documents, setSectionsCallback
     
     const closeModal = () => {
         setSectionToEdit({});
+        if(documentsToDelete.length > 0){
+            deletePendingDocuments();
+        }
+        setDocumentsToEdit([...[]]); 
+        setDocumentsToDelete([...[]]);
         setEditSectionMode(false);
         setIsOpen(false);
     }
     
     const saveSection = (section) => {
-    
         sections = addNewSection(sections, section);
-    
         setSectionsCallback([...sortArrayOfSectionsByPosition(sections)]);
-        setIsOpen(false);
+        closeModal();
     }
 
     const saveDocument = (document) => {
-
         documents.push(document);
-
         setDocumentsCallback([...(documents)]);
     }
 
     const editSection = (section) => {           
-
         const newPositionEdittedSection = section.position; 
         const oldPositionEdittedSection = section.oldPosition;
         delete section.oldPosition;
-
         sections = reorderSectionsAfterEdition(sections, oldPositionEdittedSection, newPositionEdittedSection);
-        sections[newPositionEdittedSection - 1] = section;
-                   
+        sections[newPositionEdittedSection - 1] = section;                  
         setSectionsCallback([...sections]);            
-        setIsOpen(false);    
+        closeModal();    
     }
+
+    const editDocument = (document) => {           
+        delete document.key;
+        delete document.uploaded;
+        delete document.error;
+        const index = documents.map(element => element.idDocument).indexOf(document.idDocument);
+        documents[index] = document;
+        setDocumentsCallback([...(documents)]);
+        const indexEdit = documentsToDelete.map(element => element.idDocument).indexOf(document.idDocument);
+        documentsToDelete.splice(indexEdit, 1);
+        setDocumentsToDelete([...(documentsToDelete)]);
+    }
+
+    const deletePendingDocuments = () => {
+        for(let i = 0; i < documentsToDelete.length; i++){
+            const index = documents.map(element => element.idDocument).indexOf(documentsToDelete[i].idDocument);
+            documents.splice(index, 1);
+            setDocumentsCallback([...(documents)]);
+        }
+    }
 
     // Logic to delete a section
 
@@ -84,13 +106,11 @@ function EditionComponent({ portalName, sections, documents, setSectionsCallback
     }
 
     const deleteSection = () => {
-
         sections = deleteSelectedSection(sections, sectionToDelete);
-        documents = deleteDocumentsFromSelectedSection(documents, sectionToDelete);
-                       
+        documents = deleteDocumentsFromSelectedSection(documents, sectionToDelete);              
         setSectionsCallback([...sections]);
         setDocumentsCallback([...(documents)]);            
-        setIsOpen(false);    
+        closeModal();   
     }
 
     return (
@@ -112,7 +132,9 @@ function EditionComponent({ portalName, sections, documents, setSectionsCallback
                 saveDocumentCallback={saveDocument}
                 editSectionMode={editSectionMode}
                 sectionToEdit={sectionToEdit}
+                documentsToEdit={documentsToEdit}
                 editSectionCallBack={editSection}
+                editDocumentCallback={editDocument}
                 sectiongsLength={sections.length}/>
             </Modal>
             {/* Modal to delete a section */}
