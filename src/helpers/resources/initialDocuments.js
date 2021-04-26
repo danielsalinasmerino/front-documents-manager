@@ -10,7 +10,8 @@ export const initialDocuments = [
         new Date(2021, 2, 2, 0, 0, 0, 0),
         new Date(2021, 2, 2, 0, 0, 0, 0),
         "9bNo4nIkKV2s2iKItB3JuKSadiSVIzBt",
-        false
+        false,
+        "hoja_incidencias_2021_rellenable_enero.pdf"
     ),
 
     new Document(
@@ -20,7 +21,8 @@ export const initialDocuments = [
         new Date(2021, 2, 3, 0, 0, 0, 0),
         new Date(2021, 2, 3, 0, 0, 0, 0),
         "krgyUPHLnloiSTwmszFhVxWWIa8keogW",
-        true
+        true,
+        ""
     ),
 
     new Document(
@@ -30,7 +32,8 @@ export const initialDocuments = [
         new Date(2021, 2, 5, 0, 0, 0, 0),
         new Date(2021, 2, 5, 0, 0, 0, 0),
         "H4WWChxixqkbLfcftA7ckwhLGQyiikKv",
-        false
+        false,
+        "solicitud_generica.pdf"
     ),
 
     new Document(
@@ -40,7 +43,8 @@ export const initialDocuments = [
         new Date(2021, 2, 5, 0, 0, 0, 0),
         new Date(2021, 2, 5, 0, 0, 0, 0),
         "H4WWChxixqkbLfcftA7ckwhLGQyiikKv",
-        false
+        false,
+        "solicitud_generica.doc"
     ),
 
     new Document(
@@ -50,7 +54,8 @@ export const initialDocuments = [
         new Date(2021, 2, 8, 0, 0, 0, 0),
         new Date(2021, 2, 8, 0, 0, 0, 0),
         "PoEnYk0dX9xI9WAyu6xESOLkw7NTmNMb",
-        false
+        false,
+        "Solicitud_Compatibilidad-8.pdf"
     ),
 
     new Document(
@@ -60,7 +65,8 @@ export const initialDocuments = [
         new Date(2021, 2, 8, 0, 0, 0, 0),
         new Date(2021, 2, 8, 0, 0, 0, 0),
         "PoEnYk0dX9xI9WAyu6xESOLkw7NTmNMb",
-        false
+        false,
+        "modelo_solicitud_map.pdf"
     ),
 
     new Document(
@@ -70,7 +76,8 @@ export const initialDocuments = [
         new Date(2021, 2, 8, 0, 0, 0, 0),
         new Date(2021, 2, 8, 0, 0, 0, 0),
         "PoEnYk0dX9xI9WAyu6xESOLkw7NTmNMb",
-        false
+        false,
+        "horario_pas.pdf"
     ),
 
     new Document(
@@ -80,7 +87,8 @@ export const initialDocuments = [
         new Date(2021, 2, 8, 0, 0, 0, 0),
         new Date(2021, 2, 8, 0, 0, 0, 0),
         "PoEnYk0dX9xI9WAyu6xESOLkw7NTmNMb",
-        false
+        false,
+        "horario_pas.doc"
     ),
 
     new Document(
@@ -90,7 +98,8 @@ export const initialDocuments = [
         new Date(2021, 1, 2, 0, 0, 0, 0),
         new Date(2021, 1, 2, 0, 0, 0, 0),
         "AR2U5Rfowyx9STAX3EsIVmLVMrA6h1D0",
-        false
+        false,
+        "solicitud_contratacion_temporal.doc"
     ),
 
     new Document(
@@ -100,7 +109,8 @@ export const initialDocuments = [
         new Date(2021, 2, 10, 0, 0, 0, 0),
         new Date(2021, 2, 10, 0, 0, 0, 0),
         "Oj69NNP1A8vksIhDvKD2tGDvIuYvK7jl",
-        true
+        true,
+        ""
     ),
 
     new Document(
@@ -110,7 +120,8 @@ export const initialDocuments = [
         new Date(2021, 2, 10, 0, 0, 0, 0),
         new Date(2021, 2, 10, 0, 0, 0, 0),
         "wIjP7xNF9vwroU5POnji6x1SgmKpeMV6",
-        true
+        true,
+        ""
     ),
 
   ];

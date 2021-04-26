@@ -81,7 +81,8 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
                         new Date(),
                         new Date(),
                         newSection.idSection,
-                        documentsArray[i].onlyURL
+                        documentsArray[i].onlyURL,
+                        documentsArray[i].originalDocumentName
                     ); 
     
                     saveDocumentCallback(newDocument);
@@ -137,7 +138,7 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
     }
 
     const addDocument = () => {
-        documentsArray.push({key: "document" + (documentsArray.length + 1), uploaded: false, title: "", error: false, onlyURL: false});
+        documentsArray.push({key: "document" + (documentsArray.length + 1), uploaded: false, title: "", error: false, onlyURL: false, originalDocumentName: ""});
         setDocumentsArray([...documentsArray]); 
     }
 
@@ -145,6 +146,7 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
         const positionToChange = Number(eKey.slice(8)) - 1;
         documentsArray[positionToChange].uploaded = true;
         documentsArray[positionToChange].title = (e.slice((e.lastIndexOf("\\") + 1), e.length)).trim();
+        documentsArray[positionToChange].originalDocumentName = (e.slice((e.lastIndexOf("\\") + 1), e.length)).trim();
         documentsArray[positionToChange].error = false;
         setDocumentsArray([...documentsArray]); 
     }
