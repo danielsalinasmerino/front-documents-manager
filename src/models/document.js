@@ -4,7 +4,8 @@ export class Document {
                 documentUrl,  // Mandatory 
                 createdAt,    // Mandatory 
                 updatedAt,    // Mandatory 
-                sectionID     // Mandatory 
+                sectionID,    // Mandatory 
+                onlyURL,      // Mandatory 
                 ) {
       this.idDocument = idDocument;
       this.title = title;
@@ -12,5 +13,6 @@ export class Document {
       this.createdAt = createdAt;
       this.updatedAt = updatedAt;
       this.sectionID = sectionID;
+      this.onlyURL = onlyURL;
     }
 }

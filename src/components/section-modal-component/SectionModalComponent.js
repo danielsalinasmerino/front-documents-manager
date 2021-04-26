@@ -80,7 +80,8 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
                         'https://www.google.es/', // TO DO
                         new Date(),
                         new Date(),
-                        newSection.idSection
+                        newSection.idSection,
+                        documentsArray[i].onlyURL
                     ); 
     
                     saveDocumentCallback(newDocument);
@@ -136,7 +137,7 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
     }
 
     const addDocument = () => {
-        documentsArray.push({key: "document" + (documentsArray.length + 1), uploaded: false, title: "", error: false});
+        documentsArray.push({key: "document" + (documentsArray.length + 1), uploaded: false, title: "", error: false, onlyURL: false});
         setDocumentsArray([...documentsArray]); 
     }
 

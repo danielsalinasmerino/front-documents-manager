@@ -9,7 +9,8 @@ export const initialDocuments = [
         "http://www.etsit.upm.es/fileadmin/documentos/servicios/personal/impresos_PAS/hoja_incidencias_2021_rellenable_enero.pdf",
         new Date(2021, 2, 2, 0, 0, 0, 0),
         new Date(2021, 2, 2, 0, 0, 0, 0),
-        "9bNo4nIkKV2s2iKItB3JuKSadiSVIzBt"
+        "9bNo4nIkKV2s2iKItB3JuKSadiSVIzBt",
+        false
     ),
 
     new Document(
@@ -18,7 +19,8 @@ export const initialDocuments = [
         "https://www.upm.es/politecnica_virtual/",
         new Date(2021, 2, 3, 0, 0, 0, 0),
         new Date(2021, 2, 3, 0, 0, 0, 0),
-        "krgyUPHLnloiSTwmszFhVxWWIa8keogW"
+        "krgyUPHLnloiSTwmszFhVxWWIa8keogW",
+        true
     ),
 
     new Document(
@@ -27,7 +29,8 @@ export const initialDocuments = [
         "http://www.etsit.upm.es/fileadmin/documentos/servicios/personal/impresos_PAS/solicitud_generica.pdf",
         new Date(2021, 2, 5, 0, 0, 0, 0),
         new Date(2021, 2, 5, 0, 0, 0, 0),
-        "H4WWChxixqkbLfcftA7ckwhLGQyiikKv"
+        "H4WWChxixqkbLfcftA7ckwhLGQyiikKv",
+        false
     ),
 
     new Document(
@@ -36,7 +39,8 @@ export const initialDocuments = [
         "http://www.etsit.upm.es/fileadmin/documentos/servicios/personal/impresos_PAS/solicitud_generica.doc",
         new Date(2021, 2, 5, 0, 0, 0, 0),
         new Date(2021, 2, 5, 0, 0, 0, 0),
-        "H4WWChxixqkbLfcftA7ckwhLGQyiikKv"
+        "H4WWChxixqkbLfcftA7ckwhLGQyiikKv",
+        false
     ),
 
     new Document(
@@ -45,7 +49,8 @@ export const initialDocuments = [
         "http://www.etsit.upm.es/fileadmin/documentos/servicios/personal/impresos_PAS/compatibilidad/Solicitud_Compatibilidad-8.pdf",
         new Date(2021, 2, 8, 0, 0, 0, 0),
         new Date(2021, 2, 8, 0, 0, 0, 0),
-        "PoEnYk0dX9xI9WAyu6xESOLkw7NTmNMb"
+        "PoEnYk0dX9xI9WAyu6xESOLkw7NTmNMb",
+        false
     ),
 
     new Document(
@@ -54,7 +59,8 @@ export const initialDocuments = [
         "http://www.etsit.upm.es/fileadmin/documentos/servicios/personal/impresos_PAS/compatibilidad/modelo_solicitud_map.pdf",
         new Date(2021, 2, 8, 0, 0, 0, 0),
         new Date(2021, 2, 8, 0, 0, 0, 0),
-        "PoEnYk0dX9xI9WAyu6xESOLkw7NTmNMb"
+        "PoEnYk0dX9xI9WAyu6xESOLkw7NTmNMb",
+        false
     ),
 
     new Document(
@@ -63,7 +69,8 @@ export const initialDocuments = [
         "http://www.etsit.upm.es/fileadmin/documentos/servicios/personal/impresos_PAS/compatibilidad/horario_pas.pdf",
         new Date(2021, 2, 8, 0, 0, 0, 0),
         new Date(2021, 2, 8, 0, 0, 0, 0),
-        "PoEnYk0dX9xI9WAyu6xESOLkw7NTmNMb"
+        "PoEnYk0dX9xI9WAyu6xESOLkw7NTmNMb",
+        false
     ),
 
     new Document(
@@ -72,7 +79,8 @@ export const initialDocuments = [
         "http://www.etsit.upm.es/fileadmin/documentos/servicios/personal/impresos_PAS/compatibilidad/horario_pas.doc",
         new Date(2021, 2, 8, 0, 0, 0, 0),
         new Date(2021, 2, 8, 0, 0, 0, 0),
-        "PoEnYk0dX9xI9WAyu6xESOLkw7NTmNMb"
+        "PoEnYk0dX9xI9WAyu6xESOLkw7NTmNMb",
+        false
     ),
 
     new Document(
@@ -81,7 +89,8 @@ export const initialDocuments = [
         "http://www.etsit.upm.es/fileadmin/documentos/servicios/personal/impresos_PAS/solicitud_contratacion_temporal.doc",
         new Date(2021, 1, 2, 0, 0, 0, 0),
         new Date(2021, 1, 2, 0, 0, 0, 0),
-        "AR2U5Rfowyx9STAX3EsIVmLVMrA6h1D0"
+        "AR2U5Rfowyx9STAX3EsIVmLVMrA6h1D0",
+        false
     ),
 
     new Document(
@@ -90,7 +99,8 @@ export const initialDocuments = [
         "http://www.upm.es/Personal/PAS/PASLaboral/Solicitudes",
         new Date(2021, 2, 10, 0, 0, 0, 0),
         new Date(2021, 2, 10, 0, 0, 0, 0),
-        "Oj69NNP1A8vksIhDvKD2tGDvIuYvK7jl"
+        "Oj69NNP1A8vksIhDvKD2tGDvIuYvK7jl",
+        true
     ),
 
     new Document(
@@ -99,7 +109,8 @@ export const initialDocuments = [
         "http://www.upm.es/Personal/PAS/PASFuncionario/Solicitudes",
         new Date(2021, 2, 10, 0, 0, 0, 0),
         new Date(2021, 2, 10, 0, 0, 0, 0),
-        "wIjP7xNF9vwroU5POnji6x1SgmKpeMV6"
+        "wIjP7xNF9vwroU5POnji6x1SgmKpeMV6",
+        true
     ),
 
   ];
