@@ -22,7 +22,7 @@ export const initialDocuments = [
         new Date(2021, 2, 3, 0, 0, 0, 0),
         "krgyUPHLnloiSTwmszFhVxWWIa8keogW",
         true,
-        ""
+        "https://www.upm.es/politecnica_virtual/"
     ),
 
     new Document(
@@ -110,7 +110,7 @@ export const initialDocuments = [
         new Date(2021, 2, 10, 0, 0, 0, 0),
         "Oj69NNP1A8vksIhDvKD2tGDvIuYvK7jl",
         true,
-        ""
+        "http://www.upm.es/Personal/PAS/PASLaboral/Solicitudes"
     ),
 
     new Document(
@@ -121,7 +121,7 @@ export const initialDocuments = [
         new Date(2021, 2, 10, 0, 0, 0, 0),
         "wIjP7xNF9vwroU5POnji6x1SgmKpeMV6",
         true,
-        ""
+        "http://www.upm.es/Personal/PAS/PASFuncionario/Solicitudes"
     ),
 
   ];

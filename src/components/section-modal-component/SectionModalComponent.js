@@ -25,6 +25,7 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
     const [position, setPostition] = useState(0);
 
     const [documentsArray, setDocumentsArray] = useState([]);
+    const [documentsOnlyURLArray, setDocumentsOnlyURLArray] = useState([]);
 
     useEffect(() => {
         var positionsArray = [];
@@ -36,12 +37,20 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
         if(editSectionMode){
             setTitleSection(sectionToEdit.title);
             setContentSection(sectionToEdit.description);
-            for(let i = 0; i < documentsToEdit.length; i++){
-                documentsToEdit[i].key = "document" + (i + 1);
-                documentsToEdit[i].uploaded = true;
-                documentsToEdit[i].error = false;
+            var documentsArrayToEdit = documentsToEdit.filter(document => document.onlyURL === false);
+            for(let i = 0; i < documentsArrayToEdit.length; i++){
+                documentsArrayToEdit[i].key = "document" + (i + 1);
+                documentsArrayToEdit[i].uploaded = true;
+                documentsArrayToEdit[i].error = false;
             }
-            setDocumentsArray([...documentsToEdit]); 
+            setDocumentsArray([...documentsArrayToEdit]); 
+            var documentsOnlyURLArrayToEdit = documentsToEdit.filter(document => document.onlyURL === true);
+            for(let i = 0; i < documentsOnlyURLArrayToEdit.length; i++){
+                documentsOnlyURLArrayToEdit[i].key = "docu_url" + (i + 1);
+                documentsOnlyURLArrayToEdit[i].uploaded = true;
+                documentsOnlyURLArrayToEdit[i].error = false;
+            }
+            setDocumentsOnlyURLArray([...documentsOnlyURLArrayToEdit]); 
             positionsArray.pop();            
             setPostitionsArray(positionsArray);            
             setPostition(sectionToEdit.position);
@@ -73,9 +82,10 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
                 null, // To do (parentID)
                 null  // To do (portalID)
             );
-            for(let i = 0; i < documentsArray.length; i++){
-                if(documentsArray[i].title.length !== 0){
-                    createNewDocumentAndSaveCallback(documentsArray[i], newSection.idSection);
+            const allDocuments = documentsArray.concat(documentsOnlyURLArray);
+            for(let i = 0; i < allDocuments.length; i++){
+                if(allDocuments[i].title.length !== 0){
+                    createNewDocumentAndSaveCallback(allDocuments[i], newSection.idSection);
                 }
             }
             saveSectionCallBack(newSection);
@@ -86,7 +96,7 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
         const newDocument = new Document(
             makeId(),
             documentData.title.trim(),
-            'https://www.google.es/', // TO DO
+            documentData.onlyURL ? documentData.originalDocumentName : 'https://www.google.es/', // TO DO
             new Date(),
             new Date(),
             parentSectionID,
@@ -113,14 +123,15 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
             sectionEditted.oldPosition = sectionEditted.position;         
             sectionEditted.position = position;
             sectionEditted.updatedAt = new Date();
-            for(let i = 0; i < documentsArray.length; i++){
-                if(documentsArray[i].title.length !== 0){
-                    if(documentsArray[i].idDocument !== undefined && documentsArray[i].idDocument !== null){
-                        documentsArray[i].updatedAt = new Date();
-                        editDocumentCallback(documentsArray[i]);
+            const allDocuments = documentsArray.concat(documentsOnlyURLArray);
+            for(let i = 0; i < allDocuments.length; i++){
+                if(allDocuments[i].title.length !== 0){
+                    if(allDocuments[i].idDocument !== undefined && allDocuments[i].idDocument !== null){
+                        allDocuments[i].updatedAt = new Date();
+                        editDocumentCallback(allDocuments[i]);
                     }
                     else {
-                        createNewDocumentAndSaveCallback(documentsArray[i], sectionEditted.idSection);
+                        createNewDocumentAndSaveCallback(allDocuments[i], sectionEditted.idSection);
                     }
                 }
             } 
@@ -135,8 +146,9 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
 
     const checkDocumentErrors = () => {
         var documentError = false;
-        for(let i = 0; i < documentsArray.length; i++){
-            (documentsArray[i].error) ? (documentError = true) : (documentError = false);
+        const allDocuments = documentsArray.concat(documentsOnlyURLArray);
+        for(let i = 0; i < allDocuments.length; i++){
+            (allDocuments[i].error) ? (documentError = true) : (documentError = false);
         }
         return documentError;
     }
@@ -151,37 +163,68 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
         (e.target.value.length > maxContentLength) ? setErrorContent(true) : setErrorContent(false);
     }
 
-    const addDocument = () => {
-        documentsArray.push({key: "document" + (documentsArray.length + 1), uploaded: false, title: "", error: false, onlyURL: false, originalDocumentName: ""});
-        setDocumentsArray([...documentsArray]); 
-    }
-
-    const onChangeDocument = (e, eKey) => {
-        const positionToChange = Number(eKey.slice(8)) - 1;
-        documentsArray[positionToChange].uploaded = true;
-        documentsArray[positionToChange].title = (e.slice((e.lastIndexOf("\\") + 1), e.length));
-        documentsArray[positionToChange].originalDocumentName = (e.slice((e.lastIndexOf("\\") + 1), e.length)).trim();
-        documentsArray[positionToChange].error = false;
-        if(documentsArray[positionToChange].documentUrl !== undefined && documentsArray[positionToChange].documentUrl !== null){
-            documentsArray[positionToChange].documentUrl = 'https://www.google.es/';
+    const addDocument = (onlyURL) => {
+        if(onlyURL){
+            documentsOnlyURLArray.push({key: "docu_url" + (documentsOnlyURLArray.length + 1), uploaded: false, title: "", error: false, onlyURL: true, originalDocumentName: ""});
+            setDocumentsOnlyURLArray([...documentsOnlyURLArray]); 
         }
-        setDocumentsArray([...documentsArray]); 
+        else{
+            documentsArray.push({key: "document" + (documentsArray.length + 1), uploaded: false, title: "", error: false, onlyURL: false, originalDocumentName: ""});
+            setDocumentsArray([...documentsArray]);
+        } 
     }
 
-    const onChangeTitleDocument = (e, eKey) => {
+    const onChangeDocument = (e, eKey, onlyURL) => {
         const positionToChange = Number(eKey.slice(8)) - 1;
-        documentsArray[positionToChange].title = e;
-        (e.trim().length > 0) ? documentsArray[positionToChange].error = false : documentsArray[positionToChange].error = true;
-        setDocumentsArray([...documentsArray]); 
-    }
-
-    const deleteDocument = (eKey) => {
-        const positionToChange = Number(eKey.slice(8)) - 1;
-        documentsArray.splice(positionToChange, 1);
-        for(let i = 0; i < documentsArray.length; i++){
-            documentsArray[i].key = "document" + (i + 1);
+        var documentToChange = (onlyURL) ? documentsOnlyURLArray[positionToChange] : documentsArray[positionToChange];
+        documentToChange.uploaded = true;
+        documentToChange.title = (e.slice((e.lastIndexOf("\\") + 1), e.length));
+        documentToChange.originalDocumentName = (e.slice((e.lastIndexOf("\\") + 1), e.length)).trim();
+        documentToChange.error = false;
+        if(onlyURL){
+            documentToChange.documentUrl = documentToChange.originalDocumentName;
+            documentsOnlyURLArray[positionToChange] = documentToChange;
+            setDocumentsOnlyURLArray([...documentsOnlyURLArray]);
         }
-        setDocumentsArray([...documentsArray]); 
+        else {
+            if(documentToChange.documentUrl !== undefined && documentToChange.documentUrl !== null){
+                documentToChange.documentUrl = 'https://www.google.es/';
+            }
+            documentsArray[positionToChange] = documentToChange;
+            setDocumentsArray([...documentsArray]); 
+        }
+    }
+
+    const onChangeTitleDocument = (e, eKey, onlyURL) => {
+        const positionToChange = Number(eKey.slice(8)) - 1;
+        if(onlyURL){
+            documentsOnlyURLArray[positionToChange].title = e;
+            (e.trim().length > 0) ? documentsOnlyURLArray[positionToChange].error = false : documentsOnlyURLArray[positionToChange].error = true;
+            setDocumentsOnlyURLArray([...documentsOnlyURLArray]); 
+        }
+        else {
+            documentsArray[positionToChange].title = e;
+            (e.trim().length > 0) ? documentsArray[positionToChange].error = false : documentsArray[positionToChange].error = true;
+            setDocumentsArray([...documentsArray]);
+        }
+    }
+
+    const deleteDocument = (eKey, onlyURL) => {
+        const positionToChange = Number(eKey.slice(8)) - 1;
+        if(onlyURL){
+            documentsOnlyURLArray.splice(positionToChange, 1);
+            for(let i = 0; i < documentsOnlyURLArray.length; i++){
+                documentsOnlyURLArray[i].key = "docu_url" + (i + 1);
+            }
+            setDocumentsOnlyURLArray([...documentsOnlyURLArray]); 
+        }
+        else {
+            documentsArray.splice(positionToChange, 1);
+            for(let i = 0; i < documentsArray.length; i++){
+                documentsArray[i].key = "document" + (i + 1);
+            }
+            setDocumentsArray([...documentsArray]);  
+        }
     }
 
     return (
@@ -196,8 +239,8 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
 
             <SectionPositionInput editSectionMode={editSectionMode } sectionToEdit={sectionToEdit} sectiongsLength={sectiongsLength} positionsArray={positionsArray} setPostitionCallback={setPostition}/>
 
-            <SectionDocumentsInput addDocumentCallback={addDocument} onChangeDocumentCallback={onChangeDocument} 
-                onChangeTitleDocumentCallback={onChangeTitleDocument} deleteDocumentCallback={deleteDocument} documentsArray={documentsArray}/>
+            <SectionDocumentsInput addDocumentCallback={addDocument} onChangeDocumentCallback={onChangeDocument} onChangeTitleDocumentCallback={onChangeTitleDocument} 
+                deleteDocumentCallback={deleteDocument} documentsArray={documentsArray} documentsOnlyURLArray={documentsOnlyURLArray}/>
 
             <SectionModalBottomButtons cancelText={'Cancelar'} cancelCallback={closeModal} confirmText={'Guardar'} confirmCallback={editSectionMode ? editSection : saveSection}/>
         </div>
