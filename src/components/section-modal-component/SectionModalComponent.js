@@ -112,9 +112,11 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
             sectionEditted.description = contentSection;
             sectionEditted.oldPosition = sectionEditted.position;         
             sectionEditted.position = position;
+            sectionEditted.updatedAt = new Date();
             for(let i = 0; i < documentsArray.length; i++){
                 if(documentsArray[i].title.length !== 0){
                     if(documentsArray[i].idDocument !== undefined && documentsArray[i].idDocument !== null){
+                        documentsArray[i].updatedAt = new Date();
                         editDocumentCallback(documentsArray[i]);
                     }
                     else {
