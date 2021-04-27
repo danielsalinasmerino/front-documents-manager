@@ -4,7 +4,7 @@ import addImageRoute from '../../assets/images/section-options/add.png';
 import deleteImageRoute from '../../assets/images/section-options/delete.png';
 
 
-function SectionDocumentsInput({ addDocumentCallback, onChangeDocumentCallback, onChangeTitleDocumentCallback, deleteDocumentCallback, documentsArray, documentsOnlyURLArray }) {
+function SectionDocumentsInput({ addDocumentCallback, onChangeDocumentCallback, onChangeTitleDocumentCallback, deleteDocumentCallback, documentsArray, documentsSameNameError, documentsOnlyURLArray, documentsOnlyURLSameNameError }) {
 
     
 
@@ -15,6 +15,9 @@ function SectionDocumentsInput({ addDocumentCallback, onChangeDocumentCallback, 
                 <p className="inputSubTitle">Documentos</p>
                 <img className="optionDocumentImage smallMarginTop" onClick={() => addDocumentCallback(false)} src={addImageRoute} alt={"Añadir documento"}/>
             </div>
+            {documentsSameNameError && <div className="inputLine">
+                <p className="inputSubTitle error">No se puede guardar una sección con uno o más documentos duplicados</p>
+            </div>}
             { 
                 documentsArray.map(element => 
                     <div key={element.key} className="fullWidth">
@@ -45,6 +48,9 @@ function SectionDocumentsInput({ addDocumentCallback, onChangeDocumentCallback, 
                 <p className="inputSubTitle">Enlaces</p>
                 <img className="optionDocumentImage smallMarginTop" onClick={() => addDocumentCallback(true)} src={addImageRoute} alt={"Añadir enlace"}/>
             </div>
+            {documentsOnlyURLSameNameError && <div className="inputLine">
+                <p className="inputSubTitle error">No se puede guardar una sección con uno o más enlaces duplicados</p>
+            </div>}
             { 
                 documentsOnlyURLArray.map(element => 
                     <div key={element.key} className="fullWidth">

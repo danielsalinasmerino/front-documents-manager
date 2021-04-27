@@ -25,7 +25,9 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
     const [position, setPostition] = useState(0);
 
     const [documentsArray, setDocumentsArray] = useState([]);
+    const [documentsSameNameError, setDocumentsSameNameError] = useState(false);
     const [documentsOnlyURLArray, setDocumentsOnlyURLArray] = useState([]);
+    const [documentsOnlyURLSameNameError, setDocumentsOnlyURLSameNameError] = useState(false);
 
     useEffect(() => {
         var positionsArray = [];
@@ -66,7 +68,7 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
         const titleSectionError = checkTitleSectionErrors();
         const documentError = checkDocumentErrors();
 
-        if(titleSectionError || documentError || errorContent){
+        if(titleSectionError || documentError || errorContent || documentsSameNameError || documentsOnlyURLSameNameError){
             // If we find errors we let the user know them
             (titleSectionError && setErrorTitle(true));
         }
@@ -111,7 +113,7 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
         const titleSectionError = checkTitleSectionErrors();        
         const documentError = checkDocumentErrors();
                 
-        if(titleSectionError || documentError || errorContent){            
+        if(titleSectionError || documentError || errorContent || documentsSameNameError || documentsOnlyURLSameNameError){            
             // If we find errors on the title we let the user know them            
             (titleSectionError && setErrorTitle(true));        
         }        
@@ -185,6 +187,7 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
             documentToChange.documentUrl = documentToChange.originalDocumentName;
             documentsOnlyURLArray[positionToChange] = documentToChange;
             setDocumentsOnlyURLArray([...documentsOnlyURLArray]);
+            checkDocumentsOnlyURLSameNameError();
         }
         else {
             if(documentToChange.documentUrl !== undefined && documentToChange.documentUrl !== null){
@@ -192,6 +195,7 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
             }
             documentsArray[positionToChange] = documentToChange;
             setDocumentsArray([...documentsArray]); 
+            checkDocumentsSameNameError();
         }
     }
 
@@ -217,6 +221,7 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
                 documentsOnlyURLArray[i].key = "docu_url" + (i + 1);
             }
             setDocumentsOnlyURLArray([...documentsOnlyURLArray]); 
+            checkDocumentsOnlyURLSameNameError();
         }
         else {
             documentsArray.splice(positionToChange, 1);
@@ -224,7 +229,20 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
                 documentsArray[i].key = "document" + (i + 1);
             }
             setDocumentsArray([...documentsArray]);  
+            checkDocumentsSameNameError();
         }
+    }
+
+    const checkDocumentsSameNameError = () => {
+        let seen = new Set();
+        var hasDuplicates = documentsArray.some(function(currentObject) { return seen.size === seen.add(currentObject.originalDocumentName).size; });
+        setDocumentsSameNameError(hasDuplicates);
+    }
+
+    const checkDocumentsOnlyURLSameNameError = () => {
+        let seen = new Set();
+        var hasDuplicates = documentsOnlyURLArray.some(function(currentObject) { return seen.size === seen.add(currentObject.originalDocumentName).size; });
+        setDocumentsOnlyURLSameNameError(hasDuplicates);
     }
 
     return (
@@ -239,8 +257,8 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
 
             <SectionPositionInput editSectionMode={editSectionMode } sectionToEdit={sectionToEdit} sectiongsLength={sectiongsLength} positionsArray={positionsArray} setPostitionCallback={setPostition}/>
 
-            <SectionDocumentsInput addDocumentCallback={addDocument} onChangeDocumentCallback={onChangeDocument} onChangeTitleDocumentCallback={onChangeTitleDocument} 
-                deleteDocumentCallback={deleteDocument} documentsArray={documentsArray} documentsOnlyURLArray={documentsOnlyURLArray}/>
+            <SectionDocumentsInput addDocumentCallback={addDocument} onChangeDocumentCallback={onChangeDocument} onChangeTitleDocumentCallback={onChangeTitleDocument} deleteDocumentCallback={deleteDocument} 
+                documentsArray={documentsArray} documentsOnlyURLArray={documentsOnlyURLArray} documentsSameNameError={documentsSameNameError} documentsOnlyURLSameNameError={documentsOnlyURLSameNameError}/>
 
             <SectionModalBottomButtons cancelText={'Cancelar'} cancelCallback={closeModal} confirmText={'Guardar'} confirmCallback={editSectionMode ? editSection : saveSection}/>
         </div>
