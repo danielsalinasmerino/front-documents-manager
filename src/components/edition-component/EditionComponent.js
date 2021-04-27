@@ -35,9 +35,9 @@ function EditionComponent({ portalName, sections, documents, setSectionsCallback
         setIsOpen(true);
     }
     
-    const closeModal = () => {
+    const closeModal = (cancelClose = false) => {
         setSectionToEdit({});
-        if(documentsToDelete.length > 0){
+        if(documentsToDelete.length > 0 && !cancelClose){
             deletePendingDocuments();
         }
         setDocumentsToEdit([...[]]); 
@@ -122,12 +122,12 @@ function EditionComponent({ portalName, sections, documents, setSectionsCallback
             {/* Modal to create or edit a section */}
             <Modal
               isOpen={modalIsOpen}
-              onRequestClose={closeModal}
+              onRequestClose={() => closeModal(true)}
               style={modalCustomStyles}
               ariaHideApp={false}
               contentLabel="New/Edit Section Modal">
               <SectionModalComponent
-                closeModal={closeModal}
+                closeModal={() => closeModal(true)}
                 saveSectionCallBack={saveSection}
                 saveDocumentCallback={saveDocument}
                 editSectionMode={editSectionMode}
