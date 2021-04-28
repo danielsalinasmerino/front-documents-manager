@@ -71,6 +71,7 @@ function EditionComponent({ portalName, sections, documents, setSectionsCallback
         delete document.key;
         delete document.uploaded;
         delete document.error;
+        delete document.disableInput;
         const index = documents.map(element => element.idDocument).indexOf(document.idDocument);
         documents[index] = document;
         setDocumentsCallback([...(documents)]);

@@ -44,6 +44,7 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
                 documentsArrayToEdit[i].key = "document" + (i + 1);
                 documentsArrayToEdit[i].uploaded = true;
                 documentsArrayToEdit[i].error = false;
+                documentsArrayToEdit[i].disableInput = true;
             }
             setDocumentsArray([...documentsArrayToEdit]); 
             var documentsOnlyURLArrayToEdit = documentsToEdit.filter(document => document.onlyURL === true);
@@ -51,6 +52,7 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
                 documentsOnlyURLArrayToEdit[i].key = "docu_url" + (i + 1);
                 documentsOnlyURLArrayToEdit[i].uploaded = true;
                 documentsOnlyURLArrayToEdit[i].error = false;
+                documentsArrayToEdit[i].disableInput = true;
             }
             setDocumentsOnlyURLArray([...documentsOnlyURLArrayToEdit]); 
             positionsArray.pop();            

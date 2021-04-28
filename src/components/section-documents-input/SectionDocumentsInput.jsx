@@ -22,12 +22,13 @@ function SectionDocumentsInput({ addDocumentCallback, onChangeDocumentCallback, 
                 documentsArray.map(element => 
                     <div key={element.key} className="fullWidth">
                         <div className="inputLine">
-                        <input 
-                            className="ownInput ownInputFile marginTop smallFontSize "
-                            type="file" 
-                            id="file" 
-                            name="myfile"
-                            onChange={(e) => onChangeDocumentCallback(e.target.value, element.key, false)}/>
+                            {(!element.disableInput) && <input 
+                                className="ownInput ownInputFile marginTop smallFontSize "
+                                type="file" 
+                                id="file" 
+                                name="myfile"
+                                onChange={(e) => onChangeDocumentCallback(e.target.value, element.key, false)}/>}
+                            {(element.disableInput) && <p className="lineTextFullWidth"><b>Documento: {element.originalDocumentName}</b></p>}
                             <img className="optionDocumentImage" onClick={() => deleteDocumentCallback(element.key, false)} src={deleteImageRoute} alt={"Borrar documento"}/>
                         </div>
                             { element.uploaded && 
