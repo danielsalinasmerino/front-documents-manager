@@ -16,7 +16,7 @@ function SectionDocumentsInput({ addDocumentCallback, onChangeDocumentCallback, 
                 <img className="optionDocumentImage smallMarginTop" onClick={() => addDocumentCallback(false)} src={addImageRoute} alt={"Añadir documento"}/>
             </div>
             {documentsSameNameError && <div className="inputLine">
-                <p className="inputSubTitle error">No se puede guardar una sección con uno o más documentos duplicados</p>
+                <p className="inputSubTitle error">No se admiten documentos duplicados</p>
             </div>}
             { 
                 documentsArray.map(element => 
@@ -49,7 +49,7 @@ function SectionDocumentsInput({ addDocumentCallback, onChangeDocumentCallback, 
                 <img className="optionDocumentImage smallMarginTop" onClick={() => addDocumentCallback(true)} src={addImageRoute} alt={"Añadir enlace"}/>
             </div>
             {documentsOnlyURLSameNameError && <div className="inputLine">
-                <p className="inputSubTitle error">No se puede guardar una sección con uno o más enlaces duplicados</p>
+                <p className="inputSubTitle error">No se admiten enlaces duplicados</p>
             </div>}
             { 
                 documentsOnlyURLArray.map(element => 
