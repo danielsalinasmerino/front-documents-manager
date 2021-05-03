@@ -6,7 +6,7 @@ function DocumentComponent({ documentUrl, title }) {
 
     return (
         <li>
-            <a href={documentUrl}>{title}</a>
+            <a href={documentUrl} target="_blank" rel="noreferrer">{title}</a>
         </li> 
     );
 }
