@@ -1,5 +1,5 @@
-import { functionPutRequestOptions } from '../../services/requestOptions';
-import { updateSectionByIdEndpoint } from '../../services/endpoints';
+import { functionPostRequestOptions, functionPutRequestOptions } from '../../services/requestOptions';
+import { createSectionEndpoint, updateSectionByIdEndpoint } from '../../services/endpoints';
 
 //
 // Sorts an array of sections by the position
@@ -64,9 +64,27 @@ export function addNewSection(oldSections, newSection){
     
      for(let i = 0; i < oldSections.length; i++){
         if(newSectionPosition <= oldSections[i].position){
+            // UPDATE a section
+            var raw = JSON.stringify({position:(oldSections[i].position + 1)});
+            const putRequestOptions = functionPutRequestOptions(raw);
+            fetch((updateSectionByIdEndpoint + '/' + oldSections[i].idSection), putRequestOptions)
+                .then(response => response.text())
+                .then(result => {
+                        //console.log(result)
+                    })
+                .catch(error => console.log('error', error));
             oldSections[i].position = oldSections[i].position + 1;
         }
     }
+    // CREATE a section
+    raw = JSON.stringify(newSection);
+    const postRequestOptions = functionPostRequestOptions(raw);
+    fetch(createSectionEndpoint, postRequestOptions)
+        .then(response => response.text())
+        .then(result => {
+                //console.log(result)
+            })
+        .catch(error => console.log('error', error));
 
     oldSections.push(newSection);
 

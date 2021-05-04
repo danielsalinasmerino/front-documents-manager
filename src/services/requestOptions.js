@@ -1,3 +1,17 @@
+export function functionPostRequestOptions(rawContent){
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var postRequestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: rawContent,
+        redirect: 'follow'
+    };
+
+    return postRequestOptions;
+}
+
 export const getRequestOptions = {
     method: 'GET',
     redirect: 'follow'
