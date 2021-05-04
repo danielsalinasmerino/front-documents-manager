@@ -7,7 +7,7 @@ import HeaderComponent from '../header-component/HeaderComponent';
 import SectionsComponent from '../sections-component/SectionsComponent';
 import SectionModalComponent from '../section-modal-component/SectionModalComponent';
 
-import { deleteDocumentsEndpoint, deleteSectiosEndpoint } from '../../services/endpoints';
+import { deleteDocumentByIdEndpoint, deleteSectionByIdEndpoint } from '../../services/endpoints';
 import { deleteRequestOptions } from '../../services/requestOptions';
 import { modalCustomStyles } from '../../helpers/constants/modalCustomStyles';
 import { modalDeleteSectionCustomStyles } from '../../helpers/constants/modalDeleteSectionCustomStyles';
@@ -86,7 +86,7 @@ function EditionComponent({ portalName, sections, documents, setSectionsCallback
         for(let i = 0; i < documentsToDelete.length; i++){
             const index = documents.map(element => element.idDocument).indexOf(documentsToDelete[i].idDocument);
             // DELETE a document
-            fetch((deleteDocumentsEndpoint + '/' + documentsToDelete[i].idDocument), deleteRequestOptions)
+            fetch((deleteDocumentByIdEndpoint + '/' + documentsToDelete[i].idDocument), deleteRequestOptions)
                 .then(response => response.text())
                 .then(result => {
                     //console.log(result)
@@ -116,7 +116,7 @@ function EditionComponent({ portalName, sections, documents, setSectionsCallback
 
     const deleteSection = () => {
         // DELETE a section
-        fetch((deleteSectiosEndpoint + '/' + sectionToDelete.idSection), deleteRequestOptions)
+        fetch((deleteSectionByIdEndpoint + '/' + sectionToDelete.idSection), deleteRequestOptions)
             .then(response => response.text())
             .then(result => {
                 //console.log(result)
@@ -125,7 +125,7 @@ function EditionComponent({ portalName, sections, documents, setSectionsCallback
         const documentsToDeleteHelper = documents.filter(document => document.sectionID === sectionToDelete.idSection);
         for(let i = 0; i < documentsToDeleteHelper.length; i++){
             // DELETE a document
-            fetch((deleteDocumentsEndpoint + '/' + documentsToDeleteHelper[i].idDocument), deleteRequestOptions)
+            fetch((deleteDocumentByIdEndpoint + '/' + documentsToDeleteHelper[i].idDocument), deleteRequestOptions)
                 .then(response => response.text())
                 .then(result => {
                     //console.log(result)

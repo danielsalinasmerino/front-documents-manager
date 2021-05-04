@@ -1,3 +1,6 @@
+import { functionPutRequestOptions } from '../../services/requestOptions';
+import { updateSectionByIdEndpoint } from '../../services/endpoints';
+
 //
 // Sorts an array of sections by the position
 //
@@ -81,6 +84,15 @@ export function deleteSelectedSection(oldSections, sectionToRemove){
     }
 
     for(let i = 0; i < oldSections.length; i++){
+        var raw = JSON.stringify({position:(i+1)});
+        const putRequestOptions = functionPutRequestOptions(raw);
+        // UPDATE a section
+        fetch((updateSectionByIdEndpoint + '/' + oldSections[i].idSection), putRequestOptions)
+            .then(response => response.text())
+            .then(result => {
+                //console.log(result)
+            })
+            .catch(error => console.log('error', error));
         oldSections[i].position = (i + 1);
     }
 
