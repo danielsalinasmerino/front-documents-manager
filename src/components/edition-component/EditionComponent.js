@@ -7,6 +7,8 @@ import HeaderComponent from '../header-component/HeaderComponent';
 import SectionsComponent from '../sections-component/SectionsComponent';
 import SectionModalComponent from '../section-modal-component/SectionModalComponent';
 
+import { deleteDocumentsEndpoint } from '../../services/endpoints';
+import { deleteRequestOptions } from '../../services/requestOptions';
 import { modalCustomStyles } from '../../helpers/constants/modalCustomStyles';
 import { modalDeleteSectionCustomStyles } from '../../helpers/constants/modalDeleteSectionCustomStyles';
 import { sortArrayOfSectionsByPosition, reorderSectionsAfterEdition, addNewSection, deleteSelectedSection, deleteDocumentsFromSelectedSection } from '../../helpers/functions/functions';
@@ -83,12 +85,18 @@ function EditionComponent({ portalName, sections, documents, setSectionsCallback
     const deletePendingDocuments = () => {
         for(let i = 0; i < documentsToDelete.length; i++){
             const index = documents.map(element => element.idDocument).indexOf(documentsToDelete[i].idDocument);
+            // DELETE a document
+            fetch((deleteDocumentsEndpoint + '/' + documentsToDelete[i].idDocument), deleteRequestOptions)
+                .then(response => response.text())
+                .then(result => {
+                    console.log(result)
+                })
+                .catch(error => console.log('error', error));
+
             documents.splice(index, 1);
             setDocumentsCallback([...(documents)]);
         }
     }
-
-    // Logic to delete a section
 
     const openDeleteSectionModal = (sectionToDelete = {}) => {
         setSectionToDelete(sectionToDelete);

@@ -7,3 +7,4 @@ export const readSectionsEndpoint = endpointStart + "sections";
 // Documents related endpoints
 export const createDocumentEndpoint = endpointStart + "documents";
 export const readDocumentsEndpoint = endpointStart + "documents";
+export const deleteDocumentsEndpoint = endpointStart + "documents";
