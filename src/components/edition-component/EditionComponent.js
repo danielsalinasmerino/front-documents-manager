@@ -7,8 +7,8 @@ import HeaderComponent from '../header-component/HeaderComponent';
 import SectionsComponent from '../sections-component/SectionsComponent';
 import SectionModalComponent from '../section-modal-component/SectionModalComponent';
 
-import { deleteDocumentByIdEndpoint, deleteSectionByIdEndpoint, updateDocumentByIdEndpoint } from '../../services/endpoints';
-import { functionPutRequestOptions, deleteRequestOptions } from '../../services/requestOptions';
+import { createDocumentEndpoint, deleteDocumentByIdEndpoint, deleteSectionByIdEndpoint, updateDocumentByIdEndpoint } from '../../services/endpoints';
+import { functionPostRequestOptions, functionPutRequestOptions, deleteRequestOptions } from '../../services/requestOptions';
 import { modalCustomStyles } from '../../helpers/constants/modalCustomStyles';
 import { modalDeleteSectionCustomStyles } from '../../helpers/constants/modalDeleteSectionCustomStyles';
 import { sortArrayOfSectionsByPosition, reorderSectionsAfterEdition, addNewSection, deleteSelectedSection, deleteDocumentsFromSelectedSection } from '../../helpers/functions/functions';
@@ -55,6 +55,15 @@ function EditionComponent({ portalName, sections, documents, setSectionsCallback
     }
 
     const saveDocument = (document) => {
+        // CREATE a document
+        var raw = JSON.stringify(document);
+        const postRequestOptions = functionPostRequestOptions(raw);
+        fetch(createDocumentEndpoint, postRequestOptions)
+            .then(response => response.text())
+            .then(result => {
+                    //console.log(result)
+                })
+            .catch(error => console.log('error', error));
         documents.push(document);
         setDocumentsCallback([...(documents)]);
     }
