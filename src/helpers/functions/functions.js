@@ -48,6 +48,15 @@ export function reorderSectionsAfterEdition(anArrayOfSections, edittedSectionOld
 
     // We update the position for all elements
     for(let i = 0; i < anArrayOfSections.length; i++){
+        // UPDATE a section
+        var raw = JSON.stringify({position:(i+1)});
+        const putRequestOptions = functionPutRequestOptions(raw);
+        fetch((updateSectionByIdEndpoint + '/' + anArrayOfSections[i].idSection), putRequestOptions)
+            .then(response => response.text())
+            .then(result => {
+                    //console.log(result)
+                })
+            .catch(error => console.log('error', error));
         anArrayOfSections[i].position = (i + 1);
     }
 

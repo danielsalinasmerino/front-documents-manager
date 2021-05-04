@@ -7,7 +7,7 @@ import HeaderComponent from '../header-component/HeaderComponent';
 import SectionsComponent from '../sections-component/SectionsComponent';
 import SectionModalComponent from '../section-modal-component/SectionModalComponent';
 
-import { createDocumentEndpoint, deleteDocumentByIdEndpoint, deleteSectionByIdEndpoint, updateDocumentByIdEndpoint } from '../../services/endpoints';
+import { createDocumentEndpoint, deleteDocumentByIdEndpoint, deleteSectionByIdEndpoint, updateDocumentByIdEndpoint, updateSectionByIdEndpoint } from '../../services/endpoints';
 import { functionPostRequestOptions, functionPutRequestOptions, deleteRequestOptions } from '../../services/requestOptions';
 import { modalCustomStyles } from '../../helpers/constants/modalCustomStyles';
 import { modalDeleteSectionCustomStyles } from '../../helpers/constants/modalDeleteSectionCustomStyles';
@@ -72,8 +72,18 @@ function EditionComponent({ portalName, sections, documents, setSectionsCallback
         const newPositionEdittedSection = section.position; 
         const oldPositionEdittedSection = section.oldPosition;
         delete section.oldPosition;
+        delete section._id;
         sections = reorderSectionsAfterEdition(sections, oldPositionEdittedSection, newPositionEdittedSection);
-        sections[newPositionEdittedSection - 1] = section;                  
+        sections[newPositionEdittedSection - 1] = section;
+        // UPDATE a section
+        var raw = JSON.stringify(section);
+        const putRequestOptions = functionPutRequestOptions(raw);
+        fetch((updateSectionByIdEndpoint + '/' + section.idSection), putRequestOptions)
+            .then(response => response.text())
+            .then(result => {
+                    //console.log(result)
+                })
+            .catch(error => console.log('error', error));                  
         setSectionsCallback([...sections]);            
         closeModal();    
     }
