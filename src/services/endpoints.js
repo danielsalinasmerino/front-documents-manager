@@ -3,6 +3,7 @@ const endpointStart = "http://localhost:3000/api/";
 // Sections related endpoints
 export const createSectionEndpoint = endpointStart + "sections";
 export const readSectionsEndpoint = endpointStart + "sections";
+export const deleteSectiosEndpoint = endpointStart + "sections";
 
 // Documents related endpoints
 export const createDocumentEndpoint = endpointStart + "documents";

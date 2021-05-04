@@ -7,7 +7,7 @@ import HeaderComponent from '../header-component/HeaderComponent';
 import SectionsComponent from '../sections-component/SectionsComponent';
 import SectionModalComponent from '../section-modal-component/SectionModalComponent';
 
-import { deleteDocumentsEndpoint } from '../../services/endpoints';
+import { deleteDocumentsEndpoint, deleteSectiosEndpoint } from '../../services/endpoints';
 import { deleteRequestOptions } from '../../services/requestOptions';
 import { modalCustomStyles } from '../../helpers/constants/modalCustomStyles';
 import { modalDeleteSectionCustomStyles } from '../../helpers/constants/modalDeleteSectionCustomStyles';
@@ -89,7 +89,7 @@ function EditionComponent({ portalName, sections, documents, setSectionsCallback
             fetch((deleteDocumentsEndpoint + '/' + documentsToDelete[i].idDocument), deleteRequestOptions)
                 .then(response => response.text())
                 .then(result => {
-                    console.log(result)
+                    //console.log(result)
                 })
                 .catch(error => console.log('error', error));
 
@@ -115,6 +115,23 @@ function EditionComponent({ portalName, sections, documents, setSectionsCallback
     }
 
     const deleteSection = () => {
+        // DELETE a section
+        fetch((deleteSectiosEndpoint + '/' + sectionToDelete.idSection), deleteRequestOptions)
+            .then(response => response.text())
+            .then(result => {
+                //console.log(result)
+            })
+            .catch(error => console.log('error', error));
+        const documentsToDeleteHelper = documents.filter(document => document.sectionID === sectionToDelete.idSection);
+        for(let i = 0; i < documentsToDeleteHelper.length; i++){
+            // DELETE a document
+            fetch((deleteDocumentsEndpoint + '/' + documentsToDeleteHelper[i].idDocument), deleteRequestOptions)
+                .then(response => response.text())
+                .then(result => {
+                    //console.log(result)
+                })
+                .catch(error => console.log('error', error));
+        }
         sections = deleteSelectedSection(sections, sectionToDelete);
         documents = deleteDocumentsFromSelectedSection(documents, sectionToDelete);              
         setSectionsCallback([...sections]);
