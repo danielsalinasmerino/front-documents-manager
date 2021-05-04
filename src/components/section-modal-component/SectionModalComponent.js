@@ -52,7 +52,7 @@ function SectionModalComponent({ sectiongsLength, saveSectionCallBack, saveDocum
                 documentsOnlyURLArrayToEdit[i].key = "docu_url" + (i + 1);
                 documentsOnlyURLArrayToEdit[i].uploaded = true;
                 documentsOnlyURLArrayToEdit[i].error = false;
-                documentsArrayToEdit[i].disableInput = true;
+                documentsOnlyURLArrayToEdit[i].disableInput = false;
             }
             setDocumentsOnlyURLArray([...documentsOnlyURLArrayToEdit]); 
             positionsArray.pop();            

@@ -84,14 +84,14 @@ export function deleteSelectedSection(oldSections, sectionToRemove){
     }
 
     for(let i = 0; i < oldSections.length; i++){
+        // UPDATE a section
         var raw = JSON.stringify({position:(i+1)});
         const putRequestOptions = functionPutRequestOptions(raw);
-        // UPDATE a section
         fetch((updateSectionByIdEndpoint + '/' + oldSections[i].idSection), putRequestOptions)
             .then(response => response.text())
             .then(result => {
-                //console.log(result)
-            })
+                    //console.log(result)
+                })
             .catch(error => console.log('error', error));
         oldSections[i].position = (i + 1);
     }

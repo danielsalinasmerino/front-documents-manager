@@ -7,8 +7,8 @@ import HeaderComponent from '../header-component/HeaderComponent';
 import SectionsComponent from '../sections-component/SectionsComponent';
 import SectionModalComponent from '../section-modal-component/SectionModalComponent';
 
-import { deleteDocumentByIdEndpoint, deleteSectionByIdEndpoint } from '../../services/endpoints';
-import { deleteRequestOptions } from '../../services/requestOptions';
+import { deleteDocumentByIdEndpoint, deleteSectionByIdEndpoint, updateDocumentByIdEndpoint } from '../../services/endpoints';
+import { functionPutRequestOptions, deleteRequestOptions } from '../../services/requestOptions';
 import { modalCustomStyles } from '../../helpers/constants/modalCustomStyles';
 import { modalDeleteSectionCustomStyles } from '../../helpers/constants/modalDeleteSectionCustomStyles';
 import { sortArrayOfSectionsByPosition, reorderSectionsAfterEdition, addNewSection, deleteSelectedSection, deleteDocumentsFromSelectedSection } from '../../helpers/functions/functions';
@@ -74,7 +74,17 @@ function EditionComponent({ portalName, sections, documents, setSectionsCallback
         delete document.uploaded;
         delete document.error;
         delete document.disableInput;
+        delete document._id;
         const index = documents.map(element => element.idDocument).indexOf(document.idDocument);
+        // UPDATE a document
+        var raw = JSON.stringify(document);
+        const putRequestOptions = functionPutRequestOptions(raw);
+        fetch((updateDocumentByIdEndpoint + '/' + document.idDocument), putRequestOptions)
+            .then(response => response.text())
+            .then(result => {
+                //console.log(result)
+            })
+            .catch(error => console.log('error', error));
         documents[index] = document;
         setDocumentsCallback([...(documents)]);
         const indexEdit = documentsToDelete.map(element => element.idDocument).indexOf(document.idDocument);
