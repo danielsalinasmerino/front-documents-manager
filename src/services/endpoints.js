@@ -1,4 +1,4 @@
-const endpointStart = "http://localhost:3000/api/";
+const endpointStart = "http://localhost:4000/api/";
 
 // Sections related endpoints
 export const createSectionEndpoint = endpointStart + "sections";

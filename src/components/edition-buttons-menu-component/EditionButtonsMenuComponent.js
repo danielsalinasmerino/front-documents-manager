@@ -10,7 +10,7 @@ function EditionButtonsMenuComponent({ openModalCallback }) {
     return (
         <div className="buttonsMenu editionView">
             <StyledButtonComponent clickButton={openModalCallback} buttonText={'Añadir Sección'}/>
-            <Link className="link-clean" to="/preview">
+            <Link className="link-clean" to="/pas/gestor-documental/preview">
                 <StyledButtonComponent buttonText={'Vista Previa'}/>
             </Link>
             <StyledButtonComponent buttonText={'Publicar Cambios'}/>
