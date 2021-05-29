@@ -1,4 +1,6 @@
-const endpointStart = "http://localhost:4000/api/";
+import { variables } from '../environment';
+
+const endpointStart = variables.endpointStart;
 
 // Sections related endpoints
 export const createSectionEndpoint = endpointStart + "sections";
